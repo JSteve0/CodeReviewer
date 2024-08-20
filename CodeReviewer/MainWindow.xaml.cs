@@ -77,6 +77,7 @@ public partial class MainWindow : Window {
         return tabItem;
     }
 
+    // TODO: Pull out logic into a method
     private void JavaScriptNewFileButton_OnClick(object sender, RoutedEventArgs e) {
         var newTabName = "new.js";
 
@@ -88,10 +89,14 @@ public partial class MainWindow : Window {
         WebViewerControl webViewerControl = AddNewTab(newTabName, "javascript");
         
         webViewerControl.WebViewer.SendMessage(WebViewer.Keys.Language, "javascript");
+        
+        // TODO: Optimize to only update screensize on new tab
+        UpdateScreenSizes();
 
         NewFileComboBox.SelectedIndex = -1;
     }
     
+    // TODO: Pull out logic into a method
     private void CSharpNewFileButton_OnClick(object sender, RoutedEventArgs e) {
         var newTabName = "new.cs";
 
@@ -101,6 +106,9 @@ public partial class MainWindow : Window {
         }
         
         WebViewerControl webViewerControl = AddNewTab(newTabName, "csharp");
+        
+        // TODO: Optimize to only update screensize on new tab
+        UpdateScreenSizes();
         
         webViewerControl.WebViewer.SendMessage(WebViewer.Keys.Language, "csharp");
     }
@@ -118,6 +126,10 @@ public partial class MainWindow : Window {
     }
     
     private void OnSizeChanged(object sender, SizeChangedEventArgs e) {
+        UpdateScreenSizes();
+    }
+
+    private void UpdateScreenSizes() {
         double[] computedWidth = [Math.Max(ActualWidth - 200, 0.0), 200.0];
         
         MainGrid.ColumnDefinitions[0].Width = new GridLength(computedWidth[0]);
@@ -127,7 +139,10 @@ public partial class MainWindow : Window {
         ActionsPanel.Width = computedWidth[1];
 
         MainGrid.RowDefinitions[0].Height = new GridLength(ActualHeight);
-        
+
+        foreach (var webViewerControl in _webViewerControls) {
+            webViewerControl.Value.WebView.Height = ActualHeight;
+        }
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {

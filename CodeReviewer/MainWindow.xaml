@@ -16,8 +16,8 @@
                 <ColumnDefinition Width="1000"></ColumnDefinition>
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <StackPanel Name="MainViewPanel" Height="800">
-                <TabControl Height="800" Name="Tabs" SelectionChanged="Selector_OnSelectionChanged">
+            <StackPanel Name="MainViewPanel">
+                <TabControl Name="Tabs" SelectionChanged="Selector_OnSelectionChanged">
                     <TabItem Header="new.js">
                         <local:WebViewerControl x:Name="WebViewerControlInstance"></local:WebViewerControl>
                     </TabItem>
