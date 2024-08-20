@@ -1,0 +1,99 @@
+﻿# Ignore Visual Studio temporary files, build results, and
+# sensitive user-specific files.
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# C# auto generated files
+*.designer.cs
+*.g.cs
+*.g.i.cs
+*_i.c
+*_p.c
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Ignore files from NuGet Packages
+*.nupkg
+*.snupkg
+# The packages folder can be ignored because of the 'restore' feature
+**/packages/*
+# Uncomment if you have NuGet packages that are not restored on build.
+#!**/packages/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/build/
+#!**/packages/rebuild/
+#!**/packages/restore/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# .NET Core dependencies
+*.deps.json
+*.runtimeconfig.json
+
+# .NET Core dynamically generated AssemblyInfo.cs and AssemblyAttributes.cs
+Generated\_
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# StyleCop
+*.StyleCop
+StyleCopReport.xml
+GeneratedCode
+
+# IDE-specific files
+.vscode/
+.ionide/
+
+# Backup & report files from converting an old project file to a newer format
+# in Visual Studio 2017 or higher
+ReportGenerator.xml
+.upgradereport.*
+
+# Python virtual environment
+venv/
+
+# Rider
+.idea/
+*.sln.iml
+
+# DotNet Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
