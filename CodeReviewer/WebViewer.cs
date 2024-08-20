@@ -27,7 +27,7 @@ public class WebViewer {
     }
     
     private void SendMessage(string key, string value) {
-        _webView.CoreWebView2?.PostWebMessageAsJson($"{{\"{key}\": \"{value}\"}}");
+        _webView.CoreWebView2?.PostWebMessageAsJson($"{{\"{key.ToLower()}\": \"{value.ToLower()}\"}}");
     }
     
     public void SendMessage(Keys key, string value) {

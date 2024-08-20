@@ -13,6 +13,6 @@ public partial class WebViewerControl : UserControl {
             
         DataContext = this;
         
-        WebViewer = new WebViewer("http://127.0.0.1:5500/index.html", WebView);
+        WebViewer = new WebViewer("http://127.0.0.1:8000/index.html", WebView);
     }
 }
