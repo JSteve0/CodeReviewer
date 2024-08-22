@@ -23,17 +23,16 @@
             </StackPanel>
             <StackPanel Name="ActionsPanel" Grid.Column="1" Orientation="Vertical">
                 <Label HorizontalAlignment="Center">New File</Label>
-                <ComboBox HorizontalAlignment="Left" Width="185" Name="NewFileComboBox">
-                    <ComboBoxItem></ComboBoxItem>
+                <ComboBox HorizontalAlignment="Left" Width="185" Name="NewFileComboBox" SelectionChanged="ComboBox_OnSelectionChanged">
                     <!-- ReSharper disable UnusedMember.Global -->
-                    <ComboBoxItem Name="JavaScriptNewFileButton" Selected="Button_Click">JavaScript</ComboBoxItem>
-                    <ComboBoxItem Name="CSharpNewFileButton" Selected="Button_Click">CSharp</ComboBoxItem>
+                    <ComboBoxItem Name="JavaScriptNewFileButton">JavaScript</ComboBoxItem>
+                    <ComboBoxItem Name="CSharpNewFileButton">CSharp</ComboBoxItem>
                 </ComboBox>
                 
                 <Label HorizontalAlignment="Center">Change Language</Label>
-                <ComboBox HorizontalAlignment="Left" Width="185" >
-                    <ComboBoxItem Name="JavaScriptButton" Selected="Button_Click">JavaScript</ComboBoxItem>
-                    <ComboBoxItem Name="CSharpButton" Selected="Button_Click">CSharp</ComboBoxItem>
+                <ComboBox HorizontalAlignment="Left" Width="185" SelectionChanged="ComboBox_OnSelectionChanged" >
+                    <ComboBoxItem Name="JavaScriptButton">JavaScript</ComboBoxItem>
+                    <ComboBoxItem Name="CSharpButton">CSharp</ComboBoxItem>
                 </ComboBox>
             
                 <Label HorizontalAlignment="Center">Actions</Label>

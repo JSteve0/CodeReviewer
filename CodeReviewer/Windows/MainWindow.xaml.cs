@@ -26,7 +26,9 @@ public partial class MainWindow : Window
         while (true)
         {
             OnTick();
-            await Task.Delay(100);
+            
+            // Run at 144 FPS
+            await Task.Delay(1000/144);
         }
         // ReSharper disable once FunctionNeverReturns
     }
@@ -49,34 +51,12 @@ public partial class MainWindow : Window
                     break;
             }
         }
-        else if (sender is ComboBoxItem comboBoxItem) {
-            Console.WriteLine(comboBoxItem.Name);
-
-            switch (comboBoxItem.Name)
-            {
-                case "JavaScriptNewFileButton":
-                    CreateNewFile(ProgrammingLanguage.JavaScript);
-                    break;
-                case "CSharpNewFileButton":
-                    CreateNewFile(ProgrammingLanguage.CSharp);
-                    break;
-                case "JavaScriptButton":
-                    _activeTextEditorControl?.SetLanguage(ProgrammingLanguage.JavaScript);
-                    break;
-                case "CSharpButton":
-                    _activeTextEditorControl?.SetLanguage(ProgrammingLanguage.CSharp);
-                    break;
-                case "ClearAllTextButton":
-                    _activeTextEditorControl?.QueueMessage(TextEditorWebManager.MessageType.Action, "clear");
-                    break;
-            }   
-        }
     }
     
     private void CreateNewFile(ProgrammingLanguage language)
     {
         var newTabName = _tabManager.GenerateUniqueTabName($"new.{LanguageManager.GetFileExtension(language)}");
-
+        
         var textEditorControl = _tabManager.AddNewTab(newTabName);
         textEditorControl.SetLanguage(language);
 
@@ -98,5 +78,32 @@ public partial class MainWindow : Window
                 Title = tabTitle;
             }
         }
+    }
+
+    private void ComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+        if (e.AddedItems.Count <= 0 || sender is not ComboBox comboBox) return;
+        
+        var selectedItem = e.AddedItems[0] as ComboBoxItem;
+
+        switch (selectedItem?.Name)
+        {
+            case "JavaScriptNewFileButton":
+                CreateNewFile(ProgrammingLanguage.JavaScript);
+                break;
+            case "CSharpNewFileButton":
+                CreateNewFile(ProgrammingLanguage.CSharp);
+                break;
+            case "JavaScriptButton":
+                _activeTextEditorControl?.SetLanguage(ProgrammingLanguage.JavaScript);
+                break;
+            case "CSharpButton":
+                _activeTextEditorControl?.SetLanguage(ProgrammingLanguage.CSharp);
+                break;
+            case "ClearAllTextButton":
+                _activeTextEditorControl?.QueueMessage(TextEditorWebManager.MessageType.Action, "clear");
+                break;
+        }
+            
+        comboBox.SelectedIndex = -1;
     }
 }
