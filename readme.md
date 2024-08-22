@@ -6,14 +6,52 @@
 
 ## Project Description
 
-Currently, a work in progress text editor that will have built-in AI features.
+Code Reviewer is a text editor currently in development that integrates advanced AI features for enhanced coding assistance. The application aims to support multiple programming languages file creation, editing, and validation.
 
 ### Current Features
-- Create, view, and edit JavaScript and CSharp files.
-- Uses the [Monaco Editor](https://microsoft.github.io/monaco-editor/) as the code editor which comes with the following 
-  - Basic Syntax Colorization
-  - IntelliSense and Code Validation
 
-## Project Images:
+- **File Management**: Create, view, and edit JavaScript and C# files.
+- **Editor**: Utilizes the [Monaco Editor](https://microsoft.github.io/monaco-editor/) with:
+  - Basic syntax colorization
+  - IntelliSense and code validation
+
+### Future Features
+
+- AI-powered code review and suggestions
+- Enhanced file management capabilities
+- Support for additional programming languages
+
+### Project Images
 
 ![App Image](./ReadmeImages/AppImage.png)
+
+### Installation
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/JSteve0/CodeReviewer.git
+    ```
+2. **Download and install the code editor**:
+    1. Download [Monaco-Editor Version 0.5](https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.50.0.tgz) Zip from this link.
+   2. Extract the contents 
+   3. Move the `package/min` folder in `CodeReviewer/MonacoEditor`
+3. **Start the Web Server (Located in `CodeReviewer/MonacoEditor`)**:
+   ```bash
+    python ./webserver.py
+    ```
+4. **Run the application**:
+  - Use an IDE like Visual Studio or JetBrains Rider to run the project.
+  - I'll list alternative ways to run the application here in the future.
+
+### Usage
+
+- **Create a New File**: Click on the "New File" button and select the desired language.
+- **Change Language**: Use the language selection buttons to switch between JavaScript and C#.
+
+### Contributing
+
+If you would like to contribute to the project, please fork the repository and submit a pull request with your changes.
+
+### License
+
+This project is licensed under the [MIT License](LICENSE).
