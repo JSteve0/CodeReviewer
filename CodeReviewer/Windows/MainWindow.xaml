@@ -1,10 +1,11 @@
-﻿<Window x:Class="CodeReviewer.MainWindow"
+﻿<Window x:Class="CodeReviewer.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CodeReviewer"
+        xmlns:local="clr-namespace:CodeReviewer.Windows"
         xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:controls="clr-namespace:CodeReviewer.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
     <StackPanel SizeChanged="OnSizeChanged" >
@@ -18,27 +19,25 @@
             </Grid.ColumnDefinitions>
             <StackPanel Name="MainViewPanel">
                 <TabControl Name="Tabs" SelectionChanged="Selector_OnSelectionChanged">
-                    <TabItem Header="new.js">
-                        <local:WebViewerControl x:Name="WebViewerControlInstance"></local:WebViewerControl>
-                    </TabItem>
                 </TabControl>
             </StackPanel>
             <StackPanel Name="ActionsPanel" Grid.Column="1" Orientation="Vertical">
                 <Label HorizontalAlignment="Center">New File</Label>
                 <ComboBox HorizontalAlignment="Left" Width="185" Name="NewFileComboBox">
                     <ComboBoxItem></ComboBoxItem>
-                    <ComboBoxItem Selected="JavaScriptNewFileButton_OnClick">JavaScript</ComboBoxItem>
-                    <ComboBoxItem Selected="CSharpNewFileButton_OnClick">CSharp</ComboBoxItem>
+                    <!-- ReSharper disable UnusedMember.Global -->
+                    <ComboBoxItem Name="JavaScriptNewFileButton" Selected="Button_Click">JavaScript</ComboBoxItem>
+                    <ComboBoxItem Name="CSharpNewFileButton" Selected="Button_Click">CSharp</ComboBoxItem>
                 </ComboBox>
                 
                 <Label HorizontalAlignment="Center">Change Language</Label>
                 <ComboBox HorizontalAlignment="Left" Width="185" >
-                    <ComboBoxItem Selected="JavaScriptButton_OnClick">JavaScript</ComboBoxItem>
-                    <ComboBoxItem Selected="CSharpButton_OnClick">CSharp</ComboBoxItem>
+                    <ComboBoxItem Name="JavaScriptButton" Selected="Button_Click">JavaScript</ComboBoxItem>
+                    <ComboBoxItem Name="CSharpButton" Selected="Button_Click">CSharp</ComboBoxItem>
                 </ComboBox>
             
                 <Label HorizontalAlignment="Center">Actions</Label>
-                <Button Click="ClearAllTextButton_OnClick">Clear All Text</Button>
+                <Button Name="ClearAllTextButton" Click="Button_Click">Clear All Text</Button>
             </StackPanel>
         </Grid>
     </StackPanel>
