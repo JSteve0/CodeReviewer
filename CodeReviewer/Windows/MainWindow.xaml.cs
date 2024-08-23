@@ -75,17 +75,15 @@ public partial class MainWindow : Window
     private void OnSizeChanged(object sender, SizeChangedEventArgs e) =>
         _sizeUpdater.UpdateSizes(ActualWidth, ActualHeight);
 
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (e.AddedItems[0] is TabItem selectedTabItem)
-        {
-            var tabTitle = selectedTabItem.Header.ToString();
-            if (tabTitle != null)
-            {
-                _activeTextEditorControl = _tabManager.GetEditorControl(tabTitle) ?? throw new InvalidOperationException();
-                Title = tabTitle;
-            }
-        }
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
+        if (e.AddedItems[0] is not TabItem selectedTabItem) return;
+        
+        var tabTitle = selectedTabItem.Header.ToString();
+
+        if (tabTitle == null) throw new InvalidOperationException();
+        
+        _activeTextEditorControl = _tabManager.GetEditorControl(tabTitle) ?? throw new InvalidOperationException();
+        Title = tabTitle;
     }
 
     private void ComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e) {
