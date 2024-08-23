@@ -3,11 +3,13 @@
 const API_URL = 'http://127.0.0.1:8000';
 
 let currentLanguage = '';
+let currentText = '';
 let editor = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeWebView();
     setupEventListeners();
+    setupIntervals();
     initializeEditor('javascript', 'function helloWorld() {\n\tconsole.log("Hello world!");\n}\n');
 });
 
@@ -27,6 +29,21 @@ function setupEventListeners() {
             message: 'Client disconnected'
         }));
     });
+}
+
+function setupIntervals() {
+    if (window.chrome.webview) {
+        // Monitor for text changes
+        setInterval(() => {
+            if (editor && currentText !== editor.getValue()) {
+                let message = {editor_text: editor.getValue()};
+                console.log('Sending Message:', message);
+                window.chrome.webview.postMessage(message);
+                
+                currentText = editor.getValue();
+            }
+        },100)
+    }
 }
 
 function handleWebViewMessage(event) {
