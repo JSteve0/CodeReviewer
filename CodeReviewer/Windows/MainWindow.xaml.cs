@@ -60,6 +60,14 @@ public partial class MainWindow : Window
         var textEditorControl = _tabManager.AddNewTab(newTabName);
         textEditorControl.SetLanguage(language);
 
+        // TODO: Add user setting to open new tabs instantly
+        // TODO: Add this to the tab manager?
+        // Select and open the newly created tab if no other ones are open.
+        if (_activeTextEditorControl == null) {
+            _activeTextEditorControl = textEditorControl;
+            Dispatcher.BeginInvoke(() => Tabs.SelectedIndex = 0);
+        }
+
         _sizeUpdater.UpdateSizes(ActualWidth, ActualHeight);
         NewFileComboBox.SelectedIndex = -1;
     }
