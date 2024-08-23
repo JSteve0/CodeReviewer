@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Reflection;
+using System.Windows.Controls;
 using CodeReviewer.Models;
 
 namespace CodeReviewer.Controls;
@@ -13,7 +15,12 @@ public partial class TextEditorControl : UserControl
     public TextEditorControl()
     {
         InitializeComponent();
-        _textEditorWebManager = new TextEditorWebManager("http://127.0.0.1:8000", WebView);
+        
+        string exePath = Assembly.GetExecutingAssembly().Location;
+        
+        string exeDirectory = Path.GetDirectoryName(exePath) ?? throw new InvalidOperationException();
+        
+        _textEditorWebManager = new TextEditorWebManager($"file:///{exeDirectory}/MonacoEditor/index.html", WebView);
     }
 
     public void ProcessMessages() {
@@ -27,7 +34,7 @@ public partial class TextEditorControl : UserControl
 
     public void SetLanguage(ProgrammingLanguage language)
     {
-        QueueMessage(TextEditorWebManager.MessageType.Language, language.ToString());
+        _textEditorWebManager.SetEditorLanguage(language);
     }
 }
 
