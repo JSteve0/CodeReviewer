@@ -1,4 +1,6 @@
-﻿using Microsoft.Web.WebView2.Wpf;
+﻿using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
+using Microsoft.Win32;
 
 namespace CodeReviewer.Models;
 
@@ -20,12 +22,16 @@ public class TextEditorWebManager
     {
         _webView = webView2 ?? new WebView2();
         _webView.Source = new Uri(url);
+
+        _webView.CoreWebView2InitializationCompleted += (_, _) =>
+            // CoreWebView2 is null until initialized, so this must be inside CoreWebView2InitializationCompleted
+            _webView.CoreWebView2.WebMessageReceived += ProcessReceivedMessages;
     }
 
     /// <summary>
     /// Processes messages in the queue and sends them to the WebView2 instance.
     /// </summary>
-    public void ProcessMessages()
+    public void ProcessMessagesToSend()
     {
         if (_messageQueue.Count == 0 || _webView.CoreWebView2 == null) return;
 
@@ -35,6 +41,13 @@ public class TextEditorWebManager
 
         var message = _messageQueue.Dequeue();
         SendMessage(message.MessageType, message.Value);
+    }
+
+    /// <summary>
+    /// Process messages received from the frontend.
+    /// </summary>
+    private void ProcessReceivedMessages(object? sender, CoreWebView2WebMessageReceivedEventArgs args) {
+        Console.WriteLine(args.WebMessageAsJson);
     }
 
     /// <summary>

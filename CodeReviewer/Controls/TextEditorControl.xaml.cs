@@ -24,7 +24,7 @@ public partial class TextEditorControl : UserControl
     }
 
     public void ProcessMessages() {
-        _textEditorWebManager.ProcessMessages();
+        _textEditorWebManager.ProcessMessagesToSend();
     }
 
     public void QueueMessage(TextEditorWebManager.MessageType messageType, string value)
