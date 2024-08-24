@@ -1,4 +1,4 @@
-﻿namespace CodeReviewer;
+﻿namespace CodeReviewer.Models;
 
 public enum ProgrammingLanguage {
     JavaScript,
