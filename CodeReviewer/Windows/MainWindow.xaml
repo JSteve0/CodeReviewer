@@ -47,7 +47,7 @@
                     CommandParameter="newWindow"
                     Header="New window" />
                 <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
+                    Command="{Binding OpenFile, Mode=OneWay}"
                     CommandParameter="openFile"
                     Header="Open..." />
                 <MenuItem

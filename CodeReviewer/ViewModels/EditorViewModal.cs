@@ -5,6 +5,7 @@ using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using Microsoft.Win32;
 using Wpf.Ui.Appearance;
 
 namespace CodeReviewer.ViewModels;
@@ -24,6 +25,7 @@ public class EditorViewModal : ViewModelBase {
     }
 
     public SaveFileCommand SaveFile { get; }
+    public OpenFileCommand OpenFile { get; }
 
     public EditorViewModal(WebView2 webView) {
         webView.NavigationCompleted += OnWebViewNavigationCompleted;
@@ -42,6 +44,7 @@ public class EditorViewModal : ViewModelBase {
         _editorWindowController = new EditorWindowController(webView);
 
         SaveFile = new SaveFileCommand(_editorWindowController);
+        OpenFile = new OpenFileCommand(_editorWindowController);
     }
     
     private async Task InitializeEditorAsync() {
