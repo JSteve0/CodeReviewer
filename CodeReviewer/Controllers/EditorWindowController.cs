@@ -40,7 +40,7 @@ public class EditorWindowController(WebView2 webView2) {
         );
     }
 
-    public async Task SetLanguageAsync(ProgrammingLanguage programmingLanguage)
+    public async Task SetLanguageAsync(ProgrammingLanguagesEnum programmingLanguage)
     {
         string languageId = programmingLanguage.ToString().ToLower();
 
@@ -56,9 +56,12 @@ public class EditorWindowController(WebView2 webView2) {
         await webView2.ExecuteScriptAsync(EditorObject + $".setValue(\"{literalContents}\");");
     }
 
+    public async Task<string> GetContent() {
+        return await webView2.ExecuteScriptAsync(EditorObject + $".getValue()");
+    }
+
     public void DispatchScript(string script)
     {
-
         Application.Current.Dispatcher.InvokeAsync(async () => await webView2!.ExecuteScriptAsync(script));
     }
 }

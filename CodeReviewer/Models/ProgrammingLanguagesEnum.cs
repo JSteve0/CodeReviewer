@@ -1,6 +1,6 @@
 ﻿namespace CodeReviewer.Models;
 
-public enum ProgrammingLanguage {
+public enum ProgrammingLanguagesEnum {
     JavaScript,
     CSharp
 }

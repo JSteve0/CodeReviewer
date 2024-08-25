@@ -5,6 +5,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:ww2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+                 xmlns:viewModels="clr-namespace:CodeReviewer.ViewModels"
                  Title="Code Reviewer"
                  Width="1250"
                  Height="652"
@@ -13,10 +14,11 @@
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterOwner"
-                 mc:Ignorable="d"><!--
-        ExtendsContentIntoTitleBar="True"
-        WindowBackdropType="Mica"
-        WindowCornerPreference="Default"-->
+                 mc:Ignorable="d" 
+                 d:DataContext="{d:DesignInstance viewModels:EditorViewModal}"
+                 ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
+                 WindowCornerPreference="Default">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -26,9 +28,9 @@
         </Grid.RowDefinitions>
         
         <ui:TitleBar
-            Title="Monaco Editor (Visual Studio Code)"
+            Title="Code Reviewer"
             Grid.Row="0"
-            Icon="pack://application:,,,/Assets/wpfui.png" />
+            Icon="{ui:SymbolIcon Code20}" />
         
         <Menu
             Grid.Row="1"
@@ -37,7 +39,7 @@
             FontSize="14">
             <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
                 <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
+                    Command="{Binding  SaveFile, Mode=OneWay}"
                     CommandParameter="newFile"
                     Header="New" />
                 <MenuItem
@@ -49,7 +51,7 @@
                     CommandParameter="openFile"
                     Header="Open..." />
                 <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
+                    Command="{Binding SaveFile, Mode=OneWay}"
                     CommandParameter="saveFile"
                     Header="Save" />
                 <MenuItem
@@ -61,48 +63,6 @@
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
                     CommandParameter="exit"
                     Header="Exit" />
-            </ui:MenuItem>
-            <ui:MenuItem Header="Debug" Icon="{ui:SymbolIcon DeveloperBoard24}">
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="editUndo"
-                    Header="Undo" />
-                <Separator />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="editCut"
-                    Header="Cut" />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="editCopy"
-                    Header="Copy" />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="editPaste"
-                    Header="Paste" />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="editDelete"
-                    Header="Delete"
-                    IsEnabled="False" />
-                <Separator />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="browserSearch"
-                    Header="Search with browser" />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="find"
-                    Header="Find..." />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="findNext"
-                    Header="Find next" />
-                <Separator />
-                <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
-                    CommandParameter="selectAll"
-                    Header="Select All" />
             </ui:MenuItem>
             <Separator />
             <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">
@@ -166,7 +126,7 @@
                 <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Wpf.Ui.sln" />
             </StatusBarItem>
             <StatusBarItem Grid.Column="6">
-                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Ln 45, Col 30  Spaces: 2 UTF8 with BOM C#" />
+                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding InfoText}"/>
             </StatusBarItem>
         </StatusBar>
     
