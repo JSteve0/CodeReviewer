@@ -49,11 +49,11 @@ public class EditorWindowController(WebView2 webView2) {
         );
     }
 
-    public async Task SetContentAsync(string contents)
-    {
-        var literalContents = SymbolDisplay.FormatLiteral(contents, false);
+    public async Task SetContentAsync(string contents) {
+        var literalContents = Utils.Utils.EncodeJsString(contents);
+        Console.WriteLine(literalContents);
 
-        await webView2.ExecuteScriptAsync(EditorObject + $".setValue(\"{literalContents}\");");
+        await webView2.ExecuteScriptAsync(EditorObject + $".setValue({literalContents});");
     }
 
     public async Task<string> GetContent() {
