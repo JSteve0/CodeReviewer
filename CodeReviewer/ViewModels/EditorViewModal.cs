@@ -25,8 +25,8 @@ public class EditorViewModal : ViewModelBase {
     }
 
     public SaveFileCommand SaveFile { get; private set; } = null!;
-    public OpenFileCommand OpenFile { get; private set; } = null!;
-    public NewFileCommand NewFile { get; private set; } = null!;
+    public OpenLoadFileCommandBase OpenLoadFile { get; private set; } = null!;
+    public NewLoadFileCommandBase NewLoadFile { get; private set; } = null!;
 
     public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController) {
         webView.NavigationCompleted += OnWebViewNavigationCompleted;
@@ -67,8 +67,8 @@ public class EditorViewModal : ViewModelBase {
 
     private void InitializeCommands() {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
-        OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
-        NewFile = new NewFileCommand(_editorWindowController, _editorModel);
+        OpenLoadFile = new OpenLoadFileCommandBase(_editorWindowController, _editorModel);
+        NewLoadFile = new NewLoadFileCommandBase(_editorWindowController, _editorModel);
     }
     
     private static DispatcherOperation<TResult> DispatchAsync<TResult>(Func<TResult> callback) {

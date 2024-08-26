@@ -83,8 +83,8 @@ public class EditorViewModelTests {
 
         // Assert
         Assert.NotNull(viewModel.SaveFile);
-        Assert.NotNull(viewModel.OpenFile);
-        Assert.NotNull(viewModel.NewFile);
+        Assert.NotNull(viewModel.OpenLoadFile);
+        Assert.NotNull(viewModel.NewLoadFile);
     }
 
     [StaFact]

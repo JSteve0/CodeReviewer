@@ -7,14 +7,14 @@ using Microsoft.Win32;
 
 namespace CodeReviewer.Commands;
 
-public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : CommandBase {
+public class OpenLoadFileCommandBase(IEditorWindowController editorWindowController, IEditorModel editorModel) : NewLoadFileCommandBase(editorWindowController, editorModel) {
     
     public override void Execute(object? parameter) {
         var openFileDialog = new OpenFileDialog();
 
-        bool? result = openFileDialog.ShowDialog();
+        bool? isFileSelected = openFileDialog.ShowDialog();
 
-        if (result != true) return;
+        if (isFileSelected != true) return;
 
         string fileName = openFileDialog.FileName;
         
@@ -23,20 +23,14 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
             string escapedFileText = fileText.Replace("\"", "\\\"");
             string fileExtension = fileName.Split('.').Last();
 
-            _ = editorWindowController.SetContentAsync(escapedFileText);
-            
-            SetLanguage(ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension));
+            var newLanguage =
+                ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension);
 
-            editorModel.FilePath = fileName;
+            CreateNewEditorFromFile(newLanguage, escapedFileText, fileName);
         }
         catch (Exception ex) {
             Console.WriteLine($"Error opening file: {ex.Message}");
         }
-    }
-
-    private void SetLanguage(ProgrammingLanguagesEnum? programmingLanguage) {
-        editorModel.CurrentLanguage = programmingLanguage;
-        _ = editorWindowController.SetLanguageAsync(programmingLanguage);
     }
     
 }
