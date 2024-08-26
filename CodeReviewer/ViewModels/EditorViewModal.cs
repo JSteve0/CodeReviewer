@@ -11,8 +11,8 @@ using Wpf.Ui.Appearance;
 namespace CodeReviewer.ViewModels;
 
 public class EditorViewModal : ViewModelBase {
-    private readonly EditorWindowController _editorWindowController;
-    private readonly EditorModel _editorModel;
+    private readonly IEditorWindowController _editorWindowController;
+    private readonly IEditorModel _editorModel;
 
     private string _infoText = "";
     
@@ -24,10 +24,11 @@ public class EditorViewModal : ViewModelBase {
         }
     }
 
-    public SaveFileCommand SaveFile { get; }
-    public OpenFileCommand OpenFile { get; }
+    public SaveFileCommand SaveFile { get; private set; } = null!;
+    public OpenFileCommand OpenFile { get; private set; } = null!;
+    public NewFileCommand NewFile { get; private set; } = null!;
 
-    public EditorViewModal(WebView2 webView) {
+    public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController) {
         webView.NavigationCompleted += OnWebViewNavigationCompleted;
         webView.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, true);
         webView.SetCurrentValue(WebView2.DefaultBackgroundColorProperty, System.Drawing.Color.Transparent);
@@ -41,11 +42,11 @@ public class EditorViewModal : ViewModelBase {
             )
         );
 
-        _editorWindowController = new EditorWindowController(webView);
+        _editorWindowController = editorWindowController;
 
         _editorModel = new EditorModel(OnProgrammingLanguageChanged, OnFileChanged);
-        SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
-        OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
+        
+        InitializeCommands();
     }
     
     private async Task InitializeEditorAsync() {
@@ -62,6 +63,12 @@ public class EditorViewModal : ViewModelBase {
 
     private void OnWebViewNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e) {
         DispatchAsync(InitializeEditorAsync);
+    }
+
+    private void InitializeCommands() {
+        SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
+        OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
+        NewFile = new NewFileCommand(_editorWindowController, _editorModel);
     }
     
     private static DispatcherOperation<TResult> DispatchAsync<TResult>(Func<TResult> callback) {
