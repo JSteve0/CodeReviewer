@@ -40,9 +40,9 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
         );
     }
 
-    public async Task SetLanguageAsync(ProgrammingLanguagesEnum programmingLanguage)
+    public async Task SetLanguageAsync(ProgrammingLanguagesEnum? programmingLanguage)
     {
-        string languageId = programmingLanguage.ToString().ToLower();
+        string languageId = programmingLanguage != null ? programmingLanguage.ToString()!.ToLower() : "";
 
         await webView2.ExecuteScriptAsync(
             "monaco.editor.setModelLanguage(" + EditorObject + $".getModel(), \"{languageId}\");"
