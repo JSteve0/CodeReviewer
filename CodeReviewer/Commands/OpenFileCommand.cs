@@ -18,27 +18,25 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
 
         string fileName = openFileDialog.FileName;
         
-        try {
-            // Read the file content with UTF-8 encoding
+        try {asdf
             string fileText = File.ReadAllText(fileName, Encoding.UTF8);
             string escapedFileText = fileText.Replace("\"", "\\\"");
+            string fileExtension = fileName.Split('.').Last();
 
-            // Log file name and content
-            Console.WriteLine("Opened File:");
-            Console.WriteLine(fileName);
-            Console.WriteLine("File Content:");
-            Console.WriteLine(escapedFileText);
-
-            // Set the content in the editor asynchronously
             _ = editorWindowController.SetContentAsync(escapedFileText);
+            
+            SetLanguage(ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension));
 
-            // Update the model with the file path
             editorModel.FilePath = fileName;
         }
         catch (Exception ex) {
-            // Log any errors that occur during file reading
             Console.WriteLine($"Error opening file: {ex.Message}");
         }
+    }
+
+    private void SetLanguage(ProgrammingLanguagesEnum? programmingLanguage) {
+        editorModel.CurrentLanguage = programmingLanguage;
+        _ = editorWindowController.SetLanguageAsync(programmingLanguage);
     }
     
 }
