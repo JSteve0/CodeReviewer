@@ -18,7 +18,7 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
 
         string fileName = openFileDialog.FileName;
         
-        try {asdf
+        try {
             string fileText = File.ReadAllText(fileName, Encoding.UTF8);
             string escapedFileText = fileText.Replace("\"", "\\\"");
             string fileExtension = fileName.Split('.').Last();
