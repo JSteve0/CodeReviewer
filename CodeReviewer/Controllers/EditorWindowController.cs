@@ -6,7 +6,7 @@ using Wpf.Ui.Appearance;
 
 namespace CodeReviewer.Controllers;
 
-public class EditorWindowController(WebView2 webView2) {
+public class EditorWindowController(WebView2 webView2) : IEditorWindowController {
      private const string EditorContainerSelector = "#root";
 
     private const string EditorObject = "wpfUiMonacoEditor";
@@ -60,8 +60,7 @@ public class EditorWindowController(WebView2 webView2) {
         return await webView2.ExecuteScriptAsync(EditorObject + $".getValue()");
     }
 
-    public void DispatchScript(string script)
-    {
+    public void DispatchScript(string script) {
         Application.Current.Dispatcher.InvokeAsync(async () => await webView2!.ExecuteScriptAsync(script));
     }
 }

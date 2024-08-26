@@ -1,10 +1,10 @@
 ﻿namespace CodeReviewer.Models;
 
-public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) {
-    private ProgrammingLanguagesEnum _currentLanguage;
+public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) : IEditorModel {
+    private ProgrammingLanguagesEnum? _currentLanguage;
     private string? _filePath;
     
-    public ProgrammingLanguagesEnum CurrentLanguage { get => _currentLanguage;
+    public ProgrammingLanguagesEnum? CurrentLanguage { get => _currentLanguage;
         set {
             _currentLanguage = value;
             languageChangedEvent.Invoke(this, EventArgs.Empty);
