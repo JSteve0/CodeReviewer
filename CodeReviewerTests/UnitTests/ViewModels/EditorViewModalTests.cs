@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using CodeReviewer.ViewModels;
 using CodeReviewerTests.UnitTests.Helper;
@@ -92,7 +91,7 @@ public class EditorViewModelTests {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
 
-        // Setup the properties to return specific values
+        // Set up the properties to return specific values
         mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(ProgrammingLanguagesEnum.CSharp);
         mockEditorModel.SetupGet(m => m.FilePath).Returns("path/to/file.cs");
 
@@ -124,7 +123,7 @@ public class EditorViewModelTests {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
 
-        // Setup the properties to return specific values
+        // Set up the properties to return specific values
         mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(ProgrammingLanguagesEnum.JavaScript);
         mockEditorModel.SetupGet(m => m.FilePath).Returns("path/of/file.js");
 

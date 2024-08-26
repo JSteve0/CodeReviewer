@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using Microsoft.Win32;

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using CodeReviewer.Models;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 
@@ -61,6 +60,6 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
     }
 
     public void DispatchScript(string script) {
-        Application.Current.Dispatcher.InvokeAsync(async () => await webView2!.ExecuteScriptAsync(script));
+        Application.Current.Dispatcher.InvokeAsync(async () => await webView2.ExecuteScriptAsync(script));
     }
 }

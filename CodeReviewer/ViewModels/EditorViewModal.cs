@@ -1,11 +1,9 @@
 ﻿using System.Windows;
-using System.Windows.Threading;
 using CodeReviewer.Commands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using Microsoft.Win32;
 using Wpf.Ui.Appearance;
 
 namespace CodeReviewer.ViewModels;
@@ -18,9 +16,9 @@ public class EditorViewModal : ViewModelBase {
     
     public string InfoText {
         get => _infoText;
-        set {
+        private set {
             _infoText = value;
-            OnPropertyChanged(nameof(InfoText));
+            OnPropertyChanged();
         }
     }
 
@@ -71,8 +69,8 @@ public class EditorViewModal : ViewModelBase {
         NewLoadFile = new NewLoadFileCommandBase(_editorWindowController, _editorModel);
     }
     
-    private static DispatcherOperation<TResult> DispatchAsync<TResult>(Func<TResult> callback) {
-        return Application.Current.Dispatcher.InvokeAsync(callback);
+    private static void DispatchAsync<TResult>(Func<TResult> callback) {
+        Application.Current.Dispatcher.InvokeAsync(callback);
     }
     
     private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {

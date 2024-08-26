@@ -49,10 +49,11 @@ public static class Utils {
                     sb.Append("\\t");
                     break;
                 default:
-                    int i = (int)c;
+                    int i = c;
+                    // ReSharper disable once MergeIntoLogicalPattern
                     if (i < 32 || i > 127)
                     {
-                        sb.AppendFormat("\\u{0:X04}", i);
+                        sb.Append($"\\u{i:X04}");
                     }
                     else
                     {

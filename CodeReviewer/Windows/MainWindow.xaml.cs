@@ -1,10 +1,9 @@
 ﻿using CodeReviewer.Controllers;
 using CodeReviewer.ViewModels;
-using Wpf.Ui.Controls;
 
 namespace CodeReviewer.Windows;
 
-public partial class MainWindow : FluentWindow {
+public partial class MainWindow {
     public MainWindow()
     {
         InitializeComponent();
