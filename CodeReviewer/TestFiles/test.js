@@ -1,15 +1,3 @@
 ﻿function test() {
-    console.log('Hello World"""");\n
-
+    console.log('Hello World');
 }
-
-
-\navigator
-
-\n
-
-\r\n
-
-
-''
-

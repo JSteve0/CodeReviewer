@@ -38,10 +38,23 @@
             Background="Transparent"
             FontSize="14">
             <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
-                <MenuItem
-                    Command="{Binding  SaveFile, Mode=OneWay}"
-                    CommandParameter="newFile"
-                    Header="New" />
+                <ui:MenuItem Header="New File">
+                    <MenuItem
+                        Header="JavaScript File"
+                        Command="{Binding NewFile, Mode=OneWay}"
+                        CommandParameter="JavaScript"
+                    />
+                    <MenuItem
+                        Header="CSharp File"
+                        Command="{Binding NewFile, Mode=OneWay}"
+                        CommandParameter="CSharp"
+                    />
+                    <MenuItem
+                        Header="Other"
+                        Command="{Binding NewFile, Mode=OneWay}"
+                        CommandParameter="Other"
+                    />
+                </ui:MenuItem>
                 <MenuItem
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
                     CommandParameter="newWindow"

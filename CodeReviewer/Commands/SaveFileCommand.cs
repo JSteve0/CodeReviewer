@@ -6,7 +6,7 @@ using CodeReviewer.Models;
 
 namespace CodeReviewer.Commands;
 
-public class SaveFileCommand(EditorWindowController editorWindowController, EditorModel editorModel) : CommandBase {
+public class SaveFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : CommandBase {
     
     public override async void Execute(object? parameter) {
         // TODO Add error handling

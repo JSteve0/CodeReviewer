@@ -7,10 +7,9 @@ using Microsoft.Win32;
 
 namespace CodeReviewer.Commands;
 
-public class OpenFileCommand(EditorWindowController editorWindowController, EditorModel editorModel) : CommandBase {
+public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : CommandBase {
     
-    public override void Execute(object? parameter)
-    {
+    public override void Execute(object? parameter) {
         var openFileDialog = new OpenFileDialog();
 
         bool? result = openFileDialog.ShowDialog();
@@ -19,8 +18,7 @@ public class OpenFileCommand(EditorWindowController editorWindowController, Edit
 
         string fileName = openFileDialog.FileName;
         
-        try
-        {
+        try {
             // Read the file content with UTF-8 encoding
             string fileText = File.ReadAllText(fileName, Encoding.UTF8);
             string escapedFileText = fileText.Replace("\"", "\\\"");
@@ -37,8 +35,7 @@ public class OpenFileCommand(EditorWindowController editorWindowController, Edit
             // Update the model with the file path
             editorModel.FilePath = fileName;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // Log any errors that occur during file reading
             Console.WriteLine($"Error opening file: {ex.Message}");
         }
