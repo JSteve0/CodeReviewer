@@ -2,11 +2,12 @@
 using System.Text;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
+using CodeReviewer.Models.Languages;
 using Microsoft.Win32;
 
 namespace CodeReviewer.Commands;
 
-public class OpenLoadFileCommandBase(IEditorWindowController editorWindowController, IEditorModel editorModel) : NewLoadFileCommandBase(editorWindowController, editorModel) {
+public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : LoadFileCommandBase(editorWindowController, editorModel) {
     
     public override void Execute(object? parameter) {
         var openFileDialog = new OpenFileDialog();
@@ -15,17 +16,17 @@ public class OpenLoadFileCommandBase(IEditorWindowController editorWindowControl
 
         if (isFileSelected != true) return;
 
-        string fileName = openFileDialog.FileName;
+        string filePath = openFileDialog.FileName;
         
         try {
-            string fileText = File.ReadAllText(fileName, Encoding.UTF8);
+            string fileText = File.ReadAllText(filePath, Encoding.UTF8);
             string escapedFileText = fileText.Replace("\"", "\\\"");
-            string fileExtension = fileName.Split('.').Last();
+            string fileExtension = Path.GetExtension(filePath)[1..];
 
             var newLanguage =
                 ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension);
 
-            CreateNewEditorFromFile(newLanguage, escapedFileText, fileName);
+            CreateNewEditorFromFile(newLanguage, escapedFileText, filePath);
         }
         catch (Exception ex) {
             Console.WriteLine($"Error opening file: {ex.Message}");

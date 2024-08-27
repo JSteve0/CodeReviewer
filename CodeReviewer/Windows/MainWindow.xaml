@@ -41,17 +41,17 @@
                 <ui:MenuItem Header="New File">
                     <MenuItem
                         Header="JavaScript File"
-                        Command="{Binding NewLoadFile, Mode=OneWay}"
+                        Command="{Binding NewFile, Mode=OneWay}"
                         CommandParameter="JavaScript"
                     />
                     <MenuItem
                         Header="CSharp File"
-                        Command="{Binding NewLoadFile, Mode=OneWay}"
+                        Command="{Binding NewFile, Mode=OneWay}"
                         CommandParameter="CSharp"
                     />
                     <MenuItem
                         Header="Other"
-                        Command="{Binding NewLoadFile, Mode=OneWay}"
+                        Command="{Binding NewFile, Mode=OneWay}"
                         CommandParameter="Other"
                     />
                 </ui:MenuItem>
@@ -60,7 +60,7 @@
                     CommandParameter="newWindow"
                     Header="New window" />
                 <MenuItem
-                    Command="{Binding OpenLoadFile, Mode=OneWay}"
+                    Command="{Binding OpenFile, Mode=OneWay}"
                     CommandParameter="openFile"
                     Header="Open..." />
                 <MenuItem

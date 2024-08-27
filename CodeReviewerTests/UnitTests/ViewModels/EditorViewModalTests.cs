@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CodeReviewer.Models;
+using CodeReviewer.Models.Languages;
 using CodeReviewer.ViewModels;
 using CodeReviewerTests.UnitTests.Helper;
 using Moq;
@@ -55,7 +56,7 @@ public class EditorViewModelTests {
 
         var editorModel = (EditorModel)editorModelField.GetValue(viewModelPackage.EditorViewModal)!;
         Assert.Equal(ProgrammingLanguagesEnum.JavaScript, editorModel.CurrentLanguage);
-        Assert.Equal(ProgrammingLanguagesEnum.JavaScript.ToString(), viewModelPackage.EditorViewModal.InfoText);
+        Assert.Contains(ProgrammingLanguagesEnum.JavaScript.ToString(), viewModelPackage.EditorViewModal.InfoText);
 
         // Verify that the methods on the mock were called as expected
         viewModelPackage.EditorWindowController.Verify(m => m.CreateAsync(), Times.Exactly(1));
@@ -82,50 +83,69 @@ public class EditorViewModelTests {
 
         // Assert
         Assert.NotNull(viewModel.SaveFile);
-        Assert.NotNull(viewModel.OpenLoadFile);
-        Assert.NotNull(viewModel.NewLoadFile);
+        Assert.NotNull(viewModel.OpenFile);
+        Assert.NotNull(viewModel.NewFile);
     }
 
-    [StaFact]
-    public void OnProgrammingLanguageChanged_UpdatesInfoTextForCSharp() {
+    public static IEnumerable<object[]> ProgrammingLanguageTestData => new List<object[]>
+    {
+        new object[] { ProgrammingLanguagesEnum.CSharp, "path/of/the/file.cs" },
+        new object[] { ProgrammingLanguagesEnum.JavaScript, "path/of/file.js" }
+    };
+
+    [StaTheory]
+    [MemberData(nameof(ProgrammingLanguageTestData))]
+    public void OnProgrammingLanguageChanged_UpdatesInfoText(ProgrammingLanguagesEnum programmingLanguage, string filePath)
+    {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
 
         // Set up the properties to return specific values
-        mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(ProgrammingLanguagesEnum.CSharp);
-        mockEditorModel.SetupGet(m => m.FilePath).Returns("path/to/file.cs");
+        mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(programmingLanguage);
+        mockEditorModel.SetupGet(m => m.FilePath).Returns(filePath);
+        mockEditorModel
+            .Setup(m => m.ToString())
+            .Returns($"{mockEditorModel.Object.CurrentLanguage} | {mockEditorModel.Object.FilePath}");
 
         var viewModel = CreateViewModel().EditorViewModal;
-        
+    
         var editorModelField = typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (editorModelField == null) {
+        if (editorModelField == null)
+        {
             Assert.Fail("Field _editorModel not found.");
             return;
         }
-        
+    
         editorModelField.SetValue(viewModel, mockEditorModel.Object);
-        
+    
         var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (methodInfo == null) {
+        if (methodInfo == null)
+        {
             Assert.Fail("Method OnProgrammingLanguageChanged not found.");
             return;
         }
-        
+    
         // Act
-        methodInfo.Invoke(viewModel, [null, EventArgs.Empty]);
+        methodInfo.Invoke(viewModel, new object?[] { null, EventArgs.Empty });
 
         // Assert
-        Assert.Equal("CSharp | path/to/file.cs", viewModel.InfoText);
+        Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
+        Assert.Contains(filePath, viewModel.InfoText);
     }
     
     [StaFact]
     public void OnProgrammingLanguageChanged_UpdatesInfoTextForJavaScript() {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
-
+        const ProgrammingLanguagesEnum programmingLanguage = ProgrammingLanguagesEnum.JavaScript;
+        const string filePath = "path/of/file.js";
+        
         // Set up the properties to return specific values
-        mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(ProgrammingLanguagesEnum.JavaScript);
-        mockEditorModel.SetupGet(m => m.FilePath).Returns("path/of/file.js");
+        mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(programmingLanguage);
+        mockEditorModel.SetupGet(m => m.FilePath).Returns(filePath);
+        mockEditorModel
+            .Setup(m => m.ToString())
+            .Returns($"{mockEditorModel.Object.CurrentLanguage} | {mockEditorModel.Object.FilePath}");
 
         var viewModel = CreateViewModel().EditorViewModal;
         
@@ -145,9 +165,10 @@ public class EditorViewModelTests {
         
         // Act
         methodInfo.Invoke(viewModel, [null, EventArgs.Empty]);
-
+        
         // Assert
-        Assert.Equal("JavaScript | path/of/file.js", viewModel.InfoText);
+        Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
+        Assert.Contains(filePath, viewModel.InfoText);
     }
 
     /*[Fact]

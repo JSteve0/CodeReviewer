@@ -1,4 +1,6 @@
-﻿namespace CodeReviewer.Models;
+﻿using CodeReviewer.Models.Languages;
+
+namespace CodeReviewer.Models;
 
 public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) : IEditorModel {
     private ProgrammingLanguagesEnum? _currentLanguage;
@@ -15,5 +17,12 @@ public class EditorModel(EventHandler languageChangedEvent, EventHandler filePat
             _filePath = value;
             filePathChangedEvent.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public override string ToString() {
+        var languageText = CurrentLanguage?.ToString() ?? "Language is not supported";
+        var fileText = FilePath ?? "No file loaded";
+        
+        return $"{languageText} | {fileText}";
     }
 }

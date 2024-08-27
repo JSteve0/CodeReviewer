@@ -2,6 +2,7 @@
 using CodeReviewer.Commands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
+using CodeReviewer.Models.Languages;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
@@ -23,8 +24,8 @@ public class EditorViewModal : ViewModelBase {
     }
 
     public SaveFileCommand SaveFile { get; private set; } = null!;
-    public OpenLoadFileCommandBase OpenLoadFile { get; private set; } = null!;
-    public NewLoadFileCommandBase NewLoadFile { get; private set; } = null!;
+    public OpenFileCommand OpenFile { get; private set; } = null!;
+    public NewFileCommand NewFile { get; private set; } = null!;
 
     public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController) {
         webView.NavigationCompleted += OnWebViewNavigationCompleted;
@@ -56,7 +57,7 @@ public class EditorViewModal : ViewModelBase {
         await _editorWindowController.SetContentAsync(ProgrammingLanguages.GetStartingCode(startingLanguage));
 
         _editorModel.CurrentLanguage = startingLanguage;
-        InfoText = startingLanguage.ToString();
+        InfoText = _editorModel.ToString();
     }
 
     private void OnWebViewNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e) {
@@ -65,8 +66,8 @@ public class EditorViewModal : ViewModelBase {
 
     private void InitializeCommands() {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
-        OpenLoadFile = new OpenLoadFileCommandBase(_editorWindowController, _editorModel);
-        NewLoadFile = new NewLoadFileCommandBase(_editorWindowController, _editorModel);
+        OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
+        NewFile = new NewFileCommand(_editorWindowController, _editorModel);
     }
     
     private static void DispatchAsync<TResult>(Func<TResult> callback) {
@@ -74,10 +75,10 @@ public class EditorViewModal : ViewModelBase {
     }
     
     private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {
-        InfoText = _editorModel.CurrentLanguage.ToString() + " | " + _editorModel.FilePath;
+        InfoText = _editorModel.ToString();
     }
     
     private void OnFileChanged(object? sender, EventArgs e) {
-        InfoText = _editorModel.CurrentLanguage.ToString() + " | " + _editorModel.FilePath;
+        InfoText = _editorModel.ToString();
     }
 }

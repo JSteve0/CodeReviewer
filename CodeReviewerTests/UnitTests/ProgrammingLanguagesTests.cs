@@ -1,4 +1,5 @@
 using CodeReviewer.Models;
+using CodeReviewer.Models.Languages;
 
 namespace CodeReviewerTests.UnitTests;
 

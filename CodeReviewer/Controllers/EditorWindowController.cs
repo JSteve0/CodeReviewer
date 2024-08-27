@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using CodeReviewer.Models;
+using CodeReviewer.Models.Languages;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 
