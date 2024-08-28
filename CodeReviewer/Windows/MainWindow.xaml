@@ -6,6 +6,8 @@
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:ww2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
                  xmlns:viewModels="clr-namespace:CodeReviewer.ViewModels"
+                 xmlns:local="clr-namespace:CodeReviewer.Models.Languages"
+                 xmlns:global="clr-namespace:"
                  Title="Code Reviewer"
                  Width="1250"
                  Height="652"
@@ -19,6 +21,11 @@
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica"
                  WindowCornerPreference="Default">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="GetAllLanguagesProvider" MethodName="GetAllLanguages" ObjectType="{x:Type local:ProgrammingLanguages}" />
+        <global:UpperCaseWithSuffixConverter x:Key="UpperCaseWithSuffixConverter" />
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -37,23 +44,23 @@
             Margin="0"
             Background="Transparent"
             FontSize="14">
+            <!--New File tab-->
             <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
                 <ui:MenuItem Header="New File">
-                    <MenuItem
-                        Header="JavaScript File"
-                        Command="{Binding NewFile, Mode=OneWay}"
-                        CommandParameter="JavaScript"
-                    />
-                    <MenuItem
-                        Header="CSharp File"
-                        Command="{Binding NewFile, Mode=OneWay}"
-                        CommandParameter="CSharp"
-                    />
-                    <MenuItem
-                        Header="Other"
-                        Command="{Binding NewFile, Mode=OneWay}"
-                        CommandParameter="Other"
-                    />
+                    <ui:MenuItem.ItemsSource>
+                        <Binding Source="{StaticResource GetAllLanguagesProvider}" />
+                    </ui:MenuItem.ItemsSource>
+                    <ui:MenuItem.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Extension, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
+                                <TextBlock.InputBindings>
+                                    <MouseBinding Gesture="LeftClick"
+                                                  Command="{Binding DataContext.NewFile, RelativeSource={RelativeSource AncestorType={x:Type ui:MenuItem}}}"
+                                                  CommandParameter="{Binding Name}" />
+                                </TextBlock.InputBindings>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ui:MenuItem.ItemTemplate>
                 </ui:MenuItem>
                 <MenuItem
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"

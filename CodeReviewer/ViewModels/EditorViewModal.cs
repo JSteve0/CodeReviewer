@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using CodeReviewer.Commands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
@@ -26,8 +27,12 @@ public class EditorViewModal : ViewModelBase {
     public SaveFileCommand SaveFile { get; private set; } = null!;
     public OpenFileCommand OpenFile { get; private set; } = null!;
     public NewFileCommand NewFile { get; private set; } = null!;
+    
+    public ObservableCollection<IProgrammingLanguage> AvailableLanguages { get; }
 
     public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController) {
+        AvailableLanguages = new ObservableCollection<IProgrammingLanguage>(ProgrammingLanguages.GetAllLanguages());
+        
         webView.NavigationCompleted += OnWebViewNavigationCompleted;
         webView.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, true);
         webView.SetCurrentValue(WebView2.DefaultBackgroundColorProperty, System.Drawing.Color.Transparent);

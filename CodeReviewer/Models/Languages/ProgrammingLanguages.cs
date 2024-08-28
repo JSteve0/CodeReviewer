@@ -6,6 +6,8 @@ public static class ProgrammingLanguages
         new JavaScriptProgrammingLanguage(),
         new CSharpProgrammingLanguage()
     ];
+    
+    public static IEnumerable<IProgrammingLanguage> GetAllLanguages() => Languages;
 
     public static string GetStartingCode(ProgrammingLanguagesEnum programmingLanguage) {
         IProgrammingLanguage? language = Languages.FirstOrDefault(l => l.GetProgrammingLanguageEnum() == programmingLanguage);
@@ -20,11 +22,11 @@ public static class ProgrammingLanguages
         if (language == null)
             throw new ArgumentOutOfRangeException(nameof(programmingLanguage), programmingLanguage, null);
         
-        return language.GetExtension();
+        return language.Extension;
     }
 
     public static ProgrammingLanguagesEnum? GetProgrammingLanguageFromExtension(string extension) {
-        IProgrammingLanguage? language = Languages.FirstOrDefault(l => l.GetExtension().Equals(extension, StringComparison.OrdinalIgnoreCase));
+        IProgrammingLanguage? language = Languages.FirstOrDefault(l => l.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
         return language?.GetProgrammingLanguageEnum();
     }
 }

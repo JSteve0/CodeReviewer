@@ -2,6 +2,7 @@
 
 public interface IProgrammingLanguage {
     string GetStartingCode();
-    string GetExtension();
+    string Extension { get; }
+    string Name { get; }
     ProgrammingLanguagesEnum GetProgrammingLanguageEnum();
 }
