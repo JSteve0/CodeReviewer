@@ -5,13 +5,19 @@ using CodeReviewer.ViewModels;
 using CodeReviewerTests.UnitTests.Helper;
 using Moq;
 using Wpf.Ui.Appearance;
+
 // ReSharper disable SuggestVarOrType_SimpleTypes
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace CodeReviewerTests.UnitTests.ViewModels;
 
 public class EditorViewModelTests {
-    
+    public static IEnumerable<object[]> ProgrammingLanguageTestData => new List<object[]> {
+        new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "cs")!, "path/of/the/file.cs" },
+        new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "js")!, "path/of/file.js" },
+        new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "ts")!, "path/file.ts" }
+    };
+
     private EditorPackage CreateViewModel() {
         return new EditorPackage();
     }
@@ -30,7 +36,7 @@ public class EditorViewModelTests {
             .Returns(Task.CompletedTask);
 
         viewModelPackage.EditorWindowController
-            .Setup(m => m.SetLanguageAsync(It.IsAny<ProgrammingLanguagesEnum>()))
+            .Setup(m => m.SetLanguageAsync(It.IsAny<IProgrammingLanguage>()))
             .Returns(Task.CompletedTask);
 
         viewModelPackage.EditorWindowController
@@ -38,7 +44,8 @@ public class EditorViewModelTests {
             .Returns(Task.CompletedTask);
 
         // Access private method InitializeEditorAsync using reflection
-        var methodInfo = typeof(EditorViewModal).GetMethod("InitializeEditorAsync", BindingFlags.NonPublic | BindingFlags.Instance);
+        var methodInfo =
+            typeof(EditorViewModal).GetMethod("InitializeEditorAsync", BindingFlags.NonPublic | BindingFlags.Instance);
         if (methodInfo == null) {
             Assert.Fail("Method InitializeEditorAsync not found.");
             return;
@@ -48,31 +55,34 @@ public class EditorViewModelTests {
         await (Task)methodInfo.Invoke(viewModelPackage.EditorViewModal, null)!;
 
         // Assert
-        var editorModelField = typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
+        var editorModelField =
+            typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
         if (editorModelField == null) {
             Assert.Fail("Field _editorModel not found.");
             return;
         }
 
+        IProgrammingLanguage cSharp = ProgrammingLanguages.Languages.Find(pl => pl.Extension == "cs")!;
+
         var editorModel = (EditorModel)editorModelField.GetValue(viewModelPackage.EditorViewModal)!;
-        Assert.Equal(ProgrammingLanguagesEnum.JavaScript, editorModel.CurrentLanguage);
-        Assert.Contains(ProgrammingLanguagesEnum.JavaScript.ToString(), viewModelPackage.EditorViewModal.InfoText);
+        Assert.Equal(cSharp, editorModel.CurrentLanguage);
+        Assert.Contains(cSharp.ToString(), viewModelPackage.EditorViewModal.InfoText);
 
         // Verify that the methods on the mock were called as expected
         viewModelPackage.EditorWindowController.Verify(m => m.CreateAsync(), Times.Exactly(1));
         viewModelPackage.EditorWindowController.Verify(m => m.SetThemeAsync(It.IsAny<ApplicationTheme>()), Times.Once);
-        viewModelPackage.EditorWindowController.Verify(m => m.SetLanguageAsync(ProgrammingLanguagesEnum.JavaScript), Times.Once);
+        viewModelPackage.EditorWindowController.Verify(m => m.SetLanguageAsync(cSharp), Times.Once);
         viewModelPackage.EditorWindowController.Verify(m => m.SetContentAsync(It.IsAny<string>()), Times.Once);
     }
 
     [StaFact]
-    public void InitializeCommands_SetsUpCommands()
-    {
+    public void InitializeCommands_SetsUpCommands() {
         // Arrange
         var viewModel = CreateViewModel().EditorViewModal;
 
         // Access private method InitializeCommands using reflection
-        var methodInfo = typeof(EditorViewModal).GetMethod("InitializeCommands", BindingFlags.NonPublic | BindingFlags.Instance);
+        var methodInfo =
+            typeof(EditorViewModal).GetMethod("InitializeCommands", BindingFlags.NonPublic | BindingFlags.Instance);
         if (methodInfo == null) {
             Assert.Fail("Method InitializeCommands not found.");
             return;
@@ -87,16 +97,10 @@ public class EditorViewModelTests {
         Assert.NotNull(viewModel.NewFile);
     }
 
-    public static IEnumerable<object[]> ProgrammingLanguageTestData => new List<object[]>
-    {
-        new object[] { ProgrammingLanguagesEnum.CSharp, "path/of/the/file.cs" },
-        new object[] { ProgrammingLanguagesEnum.JavaScript, "path/of/file.js" }
-    };
-
     [StaTheory]
     [MemberData(nameof(ProgrammingLanguageTestData))]
-    public void OnProgrammingLanguageChanged_UpdatesInfoText(ProgrammingLanguagesEnum programmingLanguage, string filePath)
-    {
+    public void OnProgrammingLanguageChanged_UpdatesInfoText(IProgrammingLanguage programmingLanguage,
+        string filePath) {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
 
@@ -108,38 +112,38 @@ public class EditorViewModelTests {
             .Returns($"{mockEditorModel.Object.CurrentLanguage} | {mockEditorModel.Object.FilePath}");
 
         var viewModel = CreateViewModel().EditorViewModal;
-    
-        var editorModelField = typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (editorModelField == null)
-        {
+
+        var editorModelField =
+            typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
+        if (editorModelField == null) {
             Assert.Fail("Field _editorModel not found.");
             return;
         }
-    
+
         editorModelField.SetValue(viewModel, mockEditorModel.Object);
-    
-        var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (methodInfo == null)
-        {
+
+        var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        if (methodInfo == null) {
             Assert.Fail("Method OnProgrammingLanguageChanged not found.");
             return;
         }
-    
+
         // Act
-        methodInfo.Invoke(viewModel, new object?[] { null, EventArgs.Empty });
+        methodInfo.Invoke(viewModel, [null, EventArgs.Empty]);
 
         // Assert
         Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
         Assert.Contains(filePath, viewModel.InfoText);
     }
-    
+
     [StaFact]
     public void OnProgrammingLanguageChanged_UpdatesInfoTextForJavaScript() {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
-        const ProgrammingLanguagesEnum programmingLanguage = ProgrammingLanguagesEnum.JavaScript;
+        IProgrammingLanguage programmingLanguage = ProgrammingLanguages.Languages.Find(pl => pl.Extension == "js")!;
         const string filePath = "path/of/file.js";
-        
+
         // Set up the properties to return specific values
         mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(programmingLanguage);
         mockEditorModel.SetupGet(m => m.FilePath).Returns(filePath);
@@ -148,24 +152,26 @@ public class EditorViewModelTests {
             .Returns($"{mockEditorModel.Object.CurrentLanguage} | {mockEditorModel.Object.FilePath}");
 
         var viewModel = CreateViewModel().EditorViewModal;
-        
-        var editorModelField = typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var editorModelField =
+            typeof(EditorViewModal).GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance);
         if (editorModelField == null) {
             Assert.Fail("Field _editorModel not found.");
             return;
         }
-        
+
         editorModelField.SetValue(viewModel, mockEditorModel.Object);
-        
-        var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged",
+            BindingFlags.NonPublic | BindingFlags.Instance);
         if (methodInfo == null) {
             Assert.Fail("Method OnProgrammingLanguageChanged not found.");
             return;
         }
-        
+
         // Act
         methodInfo.Invoke(viewModel, [null, EventArgs.Empty]);
-        
+
         // Assert
         Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
         Assert.Contains(filePath, viewModel.InfoText);

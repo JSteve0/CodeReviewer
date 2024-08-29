@@ -4,8 +4,8 @@ using CodeReviewer.Models.Languages;
 
 namespace CodeReviewer.Commands;
 
-public class NewFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : LoadFileCommandBase(editorWindowController, editorModel) {
-
+public class NewFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
+    : LoadFileCommandBase(editorWindowController, editorModel) {
     public override void Execute(object? parameter) {
         var languageName = parameter?.ToString();
         IProgrammingLanguage? language = ProgrammingLanguages.Languages
@@ -13,5 +13,4 @@ public class NewFileCommand(IEditorWindowController editorWindowController, IEdi
 
         CreateNewEditor(language);
     }
-    
 }

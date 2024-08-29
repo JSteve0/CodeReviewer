@@ -16,16 +16,17 @@
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterOwner"
-                 mc:Ignorable="d" 
+                 mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance viewModels:EditorViewModal}"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica"
                  WindowCornerPreference="Default">
     <Window.Resources>
-        <ObjectDataProvider x:Key="GetAllLanguagesProvider" MethodName="GetAllLanguages" ObjectType="{x:Type local:ProgrammingLanguages}" />
+        <ObjectDataProvider x:Key="GetAllLanguagesProvider" MethodName="GetAllLanguages"
+                            ObjectType="{x:Type local:ProgrammingLanguages}" />
         <utils:UpperCaseWithSuffixConverter x:Key="UpperCaseWithSuffixConverter" />
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -33,12 +34,12 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
         <ui:TitleBar
             Title="Code Reviewer"
             Grid.Row="0"
             Icon="{ui:SymbolIcon Code20}" />
-        
+
         <Menu
             Grid.Row="1"
             Margin="0"
@@ -52,7 +53,8 @@
                     </ui:MenuItem.ItemsSource>
                     <ui:MenuItem.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Extension, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
+                            <TextBlock
+                                Text="{Binding Extension, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding Gesture="LeftClick"
                                                   Command="{Binding DataContext.NewFile, RelativeSource={RelativeSource AncestorType={x:Type ui:MenuItem}}}"
@@ -146,9 +148,9 @@
                 <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Wpf.Ui.sln" />
             </StatusBarItem>
             <StatusBarItem Grid.Column="6">
-                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding InfoText}"/>
+                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding InfoText}" />
             </StatusBarItem>
         </StatusBar>
-    
+
     </Grid>
 </ui:FluentWindow>

@@ -4,14 +4,11 @@ using CodeReviewer.ViewModels;
 namespace CodeReviewer.Windows;
 
 public partial class MainWindow {
-    public MainWindow()
-    {
+    public MainWindow() {
         InitializeComponent();
 
         var editorViewModal = new EditorViewModal(WebView, new EditorWindowController(WebView));
 
         DataContext = editorViewModal;
     }
-    
-    
 }
