@@ -4,5 +4,5 @@ public interface IProgrammingLanguage {
     string GetStartingCode();
     string Extension { get; }
     string Name { get; }
-    ProgrammingLanguagesEnum GetProgrammingLanguageEnum();
+    string ToString();
 }

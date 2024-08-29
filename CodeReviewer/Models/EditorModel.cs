@@ -3,10 +3,10 @@
 namespace CodeReviewer.Models;
 
 public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) : IEditorModel {
-    private ProgrammingLanguagesEnum? _currentLanguage;
+    private IProgrammingLanguage? _currentLanguage;
     private string? _filePath;
     
-    public ProgrammingLanguagesEnum? CurrentLanguage { get => _currentLanguage;
+    public IProgrammingLanguage? CurrentLanguage { get => _currentLanguage;
         set {
             _currentLanguage = value;
             languageChangedEvent.Invoke(this, EventArgs.Empty);
@@ -20,8 +20,8 @@ public class EditorModel(EventHandler languageChangedEvent, EventHandler filePat
     }
 
     public override string ToString() {
-        var languageText = CurrentLanguage?.ToString() ?? "Language is not supported";
-        var fileText = FilePath ?? "No file loaded";
+        string languageText = CurrentLanguage?.ToString() ?? "Language is not supported";
+        string fileText = FilePath ?? "No file loaded";
         
         return $"{languageText} | {fileText}";
     }

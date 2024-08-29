@@ -7,7 +7,7 @@
                  xmlns:ww2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
                  xmlns:viewModels="clr-namespace:CodeReviewer.ViewModels"
                  xmlns:local="clr-namespace:CodeReviewer.Models.Languages"
-                 xmlns:global="clr-namespace:"
+                 xmlns:utils="clr-namespace:CodeReviewer.Utils"
                  Title="Code Reviewer"
                  Width="1250"
                  Height="652"
@@ -23,7 +23,7 @@
                  WindowCornerPreference="Default">
     <Window.Resources>
         <ObjectDataProvider x:Key="GetAllLanguagesProvider" MethodName="GetAllLanguages" ObjectType="{x:Type local:ProgrammingLanguages}" />
-        <global:UpperCaseWithSuffixConverter x:Key="UpperCaseWithSuffixConverter" />
+        <utils:UpperCaseWithSuffixConverter x:Key="UpperCaseWithSuffixConverter" />
     </Window.Resources>
     
     <Grid>

@@ -5,21 +5,21 @@ using CodeReviewer.Models.Languages;
 namespace CodeReviewer.Commands;
 
 public abstract class LoadFileCommandBase(IEditorWindowController editorWindowController, IEditorModel editorModel) : CommandBase {
-    private void SetLanguage(ProgrammingLanguagesEnum? programmingLanguage) {
+    private void SetLanguage(IProgrammingLanguage? programmingLanguage) {
         editorModel.CurrentLanguage = programmingLanguage;
         _ = editorWindowController.SetLanguageAsync(programmingLanguage);
     }
 
-    protected void CreateNewEditor(ProgrammingLanguagesEnum? programmingLanguage) {
+    protected void CreateNewEditor(IProgrammingLanguage? programmingLanguage) {
         SetLanguage(programmingLanguage);
         _ = editorWindowController.SetContentAsync(programmingLanguage != null 
-            ? ProgrammingLanguages.GetStartingCode((ProgrammingLanguagesEnum)programmingLanguage)
+            ? programmingLanguage.GetStartingCode()
             : "");
 
         editorModel.FilePath = null;
     }
 
-    protected void CreateNewEditorFromFile(ProgrammingLanguagesEnum? programmingLanguage, string fileText, string fileName) {
+    protected void CreateNewEditorFromFile(IProgrammingLanguage? programmingLanguage, string fileText, string fileName) {
         SetLanguage(programmingLanguage);
         _ = editorWindowController.SetContentAsync(fileText);
 

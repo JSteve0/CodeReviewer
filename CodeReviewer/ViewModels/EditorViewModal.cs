@@ -54,12 +54,12 @@ public class EditorViewModal : ViewModelBase {
     }
     
     private async Task InitializeEditorAsync() {
-        const ProgrammingLanguagesEnum startingLanguage = ProgrammingLanguagesEnum.JavaScript;
+        IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
         
         await _editorWindowController.CreateAsync();
         await _editorWindowController.SetThemeAsync(ApplicationThemeManager.GetAppTheme());
         await _editorWindowController.SetLanguageAsync(startingLanguage);
-        await _editorWindowController.SetContentAsync(ProgrammingLanguages.GetStartingCode(startingLanguage));
+        await _editorWindowController.SetContentAsync(startingLanguage.GetStartingCode());
 
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();
