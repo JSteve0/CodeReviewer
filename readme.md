@@ -26,6 +26,9 @@ Code Reviewer is a text editor currently in development that integrates advanced
 ![App Image](./ReadmeImages/AppImage.png)
 
 ### Installation
+- Follow the guide in the latest release
+
+### Installation
 
 1. **Clone the repository**:
     ```bash
@@ -35,11 +38,7 @@ Code Reviewer is a text editor currently in development that integrates advanced
     1. Download [Monaco-Editor Version 0.5](https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.50.0.tgz) Zip from this link.
    2. Extract the contents 
    3. Move the `package/min` folder in `CodeReviewer/MonacoEditor`
-3. **Start the Web Server (Located in `CodeReviewer/MonacoEditor`)**:
-   ```bash
-    python ./webserver.py
-    ```
-4. **Run the application**:
+3. **Run the application**:
   - Use an IDE like Visual Studio or JetBrains Rider to run the project.
   - I'll list alternative ways to run the application here in the future.
 
