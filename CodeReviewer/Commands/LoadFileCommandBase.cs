@@ -5,13 +5,12 @@ using CodeReviewer.Models.Languages;
 namespace CodeReviewer.Commands;
 
 /// <summary>
-/// Base class for commands that involve loading files into the editor.
+///     Base class for commands that involve loading files into the editor.
 /// </summary>
 public abstract class LoadFileCommandBase(IEditorWindowController editorWindowController, IEditorModel editorModel)
     : CommandBase {
-
     /// <summary>
-    /// Sets the programming language for the editor and updates the model.
+    ///     Sets the programming language for the editor and updates the model.
     /// </summary>
     /// <param name="programmingLanguage">The programming language to set in the editor. Can be <c>null</c>.</param>
     private void SetLanguage(IProgrammingLanguage? programmingLanguage) {
@@ -20,8 +19,8 @@ public abstract class LoadFileCommandBase(IEditorWindowController editorWindowCo
     }
 
     /// <summary>
-    /// Creates a new editor instance with the specified programming language.
-    /// Initializes the editor content with the starting code for the language.
+    ///     Creates a new editor instance with the specified programming language.
+    ///     Initializes the editor content with the starting code for the language.
     /// </summary>
     /// <param name="programmingLanguage">The programming language to initialize the editor with. <c>Can be null</c>.</param>
     protected void CreateNewEditor(IProgrammingLanguage? programmingLanguage) {
@@ -31,12 +30,12 @@ public abstract class LoadFileCommandBase(IEditorWindowController editorWindowCo
             : "");
 
         editorModel.FilePath = null;
-        
+
         Logger.LogInfo($"Created and opened a new {programmingLanguage!.ToString()} file");
     }
 
     /// <summary>
-    /// Creates a new editor instance, sets the content from a file, and updates the file path in the model.
+    ///     Creates a new editor instance, sets the content from a file, and updates the file path in the model.
     /// </summary>
     /// <param name="programmingLanguage">The programming language associated with the file. Can be null.</param>
     /// <param name="fileText">The text content to load into the editor.</param>
@@ -47,7 +46,7 @@ public abstract class LoadFileCommandBase(IEditorWindowController editorWindowCo
         _ = editorWindowController.SetContentAsync(fileText);
 
         editorModel.FilePath = fileName;
-        
+
         Logger.LogInfo($"Opened a {programmingLanguage!.ToString()} file");
     }
 }

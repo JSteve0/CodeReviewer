@@ -8,16 +8,16 @@ using Microsoft.Win32;
 namespace CodeReviewer.Commands;
 
 /// <summary>
-/// Command to open a file and load its content into the editor.
+///     Command to open a file and load its content into the editor.
 /// </summary>
 public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
     : LoadFileCommandBase(editorWindowController, editorModel) {
-    
     /// <summary>
-    /// Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the file's content.
+    ///     Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the
+    ///     file's content.
     /// </summary>
     /// <param name="parameter">
-    /// Optional parameter for the command. Not used in this implementation and can be <c>null</c>.
+    ///     Optional parameter for the command. Not used in this implementation and can be <c>null</c>.
     /// </param>
     public override void Execute(object? parameter) {
         var openFileDialog = new OpenFileDialog {
@@ -46,7 +46,7 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
     }
 
     /// <summary>
-    /// Escapes special characters in the text for use in JavaScript.
+    ///     Escapes special characters in the text for use in JavaScript.
     /// </summary>
     /// <param name="text">The text to escape.</param>
     /// <returns>The escaped text.</returns>

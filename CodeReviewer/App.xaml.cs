@@ -10,14 +10,13 @@ using Microsoft.Extensions.Hosting;
 namespace CodeReviewer;
 
 /// <summary>
-/// Interaction logic for App.xaml
+///     Interaction logic for App.xaml
 /// </summary>
 // ReSharper disable once RedundantExtendsListEntry
 public partial class App : Application {
     private IHost? _host;
 
-    protected override void OnStartup(StartupEventArgs e)
-    {
+    protected override void OnStartup(StartupEventArgs e) {
         base.OnStartup(e);
 
         _host = CreateHostBuilder().Build();
@@ -29,10 +28,9 @@ public partial class App : Application {
         mainWindow.Show();
     }
 
-    private IHostBuilder CreateHostBuilder() =>
-        Host.CreateDefaultBuilder()
-            .ConfigureServices((_, services) =>
-            {
+    private IHostBuilder CreateHostBuilder() {
+        return Host.CreateDefaultBuilder()
+            .ConfigureServices((_, services) => {
                 // Register services
                 services.AddTransient<IEditorModel, EditorModel>();
                 services.AddTransient<IEditorWindowController, EditorWindowController>();
@@ -47,9 +45,9 @@ public partial class App : Application {
                 // Register the main window
                 services.AddTransient<MainWindow>();
             });
+    }
 
-    protected override void OnExit(ExitEventArgs e)
-    {
+    protected override void OnExit(ExitEventArgs e) {
         _host?.Dispose();
         base.OnExit(e);
     }

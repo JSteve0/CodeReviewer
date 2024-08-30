@@ -8,8 +8,8 @@ using Microsoft.Web.WebView2.Wpf;
 namespace CodeReviewer.Services;
 
 public class WebViewInitializer {
-    private readonly WebView2 _webView;
     private readonly EventHandler _onInitializedEventHandler;
+    private readonly WebView2 _webView;
 
     public WebViewInitializer(WebView2 webView, EventHandler onInitializedEventHandler) {
         _webView = webView;
@@ -19,7 +19,7 @@ public class WebViewInitializer {
 
     private void Initialize() {
         ConsoleLogger.Instance.LogInfo("Initializing Web View");
-        
+
         _webView.NavigationCompleted += OnWebViewNavigationCompleted;
         _webView.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, true);
         _webView.SetCurrentValue(WebView2.DefaultBackgroundColorProperty, Color.Transparent);

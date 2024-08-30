@@ -1,8 +1,8 @@
 ﻿using CodeReviewer.Commands;
 using CodeReviewer.Controllers;
+using CodeReviewer.Logging;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
-using CodeReviewer.Logging;
 using CodeReviewer.Services;
 using CodeReviewer.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
@@ -51,21 +51,20 @@ public class EditorViewModal : ViewModelBase {
     private void OnFileChanged(object? sender, EventArgs e) {
         InfoText = _editorModel.ToString();
     }
-    
+
     private async void InitializeEditorAsync(object? sender, EventArgs eventArgs) {
         IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
-        
+
         ConsoleLogger.Instance.LogInfo("Initializing Monaco Editor");
 
         await _editorWindowController.CreateAsync();
         await _editorWindowController.SetThemeAsync(ApplicationThemeManager.GetAppTheme());
         await _editorWindowController.SetLanguageAsync(startingLanguage);
         await _editorWindowController.SetContentAsync(startingLanguage.GetStartingCode());
-        
+
         ConsoleLogger.Instance.LogInfo("Finished initialization of Monaco Editor");
 
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();
     }
-    
 }

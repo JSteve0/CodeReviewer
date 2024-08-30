@@ -1,7 +1,7 @@
 ﻿namespace CodeReviewer.Logging;
 
 /// <summary>
-/// Provides methods for logging messages.
+///     Provides methods for logging messages.
 /// </summary>
 public interface ILogger {
     void LogInfo(string message);
