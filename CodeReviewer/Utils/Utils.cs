@@ -22,7 +22,6 @@ public static class Utils {
         foreach (char c in sCopy)
             switch (c) {
                 case '\"':
-                    Console.WriteLine("Hit");
                     sb.Append("\\\"");
                     break;
                 case '\\':

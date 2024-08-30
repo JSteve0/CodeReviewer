@@ -7,56 +7,64 @@ namespace CodeReviewer.Controllers;
 
 public class EditorWindowController(WebView2 webView2) : IEditorWindowController {
     private const string EditorContainerSelector = "#root";
-
     private const string EditorObject = "wpfUiMonacoEditor";
 
+    private async Task ExecuteScriptWithLoggingAsync(string script) {
+        try {
+            await webView2.ExecuteScriptAsync(script);
+        } catch (Exception ex) {
+            Console.WriteLine($"Error executing script: {ex.Message}");
+        }
+    }
+
     public async Task CreateAsync() {
-        _ = await webView2.ExecuteScriptAsync(
-            $$"""
-              const {{EditorObject}} = monaco.editor.create(document.querySelector('{{EditorContainerSelector}}'));
-              window.onresize = () => {{{EditorObject}}.layout();}
-              """
-        );
+        const string script = $$"""
+                                const {{EditorObject}} = monaco.editor.create(document.querySelector('{{EditorContainerSelector}}'));
+                                window.onresize = () => {{{EditorObject}}.layout()};
+                                """;
+        await ExecuteScriptWithLoggingAsync(script);
     }
 
     public async Task SetThemeAsync(ApplicationTheme appApplicationTheme) {
         const string uiThemeName = "wpf-ui-app-theme";
         string baseMonacoTheme = appApplicationTheme == ApplicationTheme.Light ? "vs" : "vs-dark";
 
-        Console.WriteLine(baseMonacoTheme);
-
-        _ = await webView2.ExecuteScriptAsync(
-            $$$"""
-               monaco.editor.defineTheme('{{{uiThemeName}}}', {
-                   base: '{{{baseMonacoTheme}}}',
-                   inherit: true,
-                   rules: [{ background: 'FFFFFF00' }],
-                   colors: {'editor.background': '#FFFFFF00','minimap.background': '#FFFFFF00',}});
-               monaco.editor.setTheme('{{{uiThemeName}}}');
-               """
-        );
+        var script = $$$"""
+                        monaco.editor.defineTheme('{{{uiThemeName}}}', {
+                            base: '{{{baseMonacoTheme}}}',
+                            inherit: true,
+                            rules: [{ background: 'FFFFFF00' }],
+                            colors: {'editor.background': '#FFFFFF00','minimap.background': '#FFFFFF00',}});
+                        monaco.editor.setTheme('{{{uiThemeName}}}');
+                        """;
+        await ExecuteScriptWithLoggingAsync(script);
     }
 
     public async Task SetLanguageAsync(IProgrammingLanguage? programmingLanguage) {
-        string languageId = programmingLanguage != null ? programmingLanguage.ToString().ToLower() : "";
+        string languageId = programmingLanguage?.ToString().ToLower() ?? "plaintext";
 
-        await webView2.ExecuteScriptAsync(
-            "monaco.editor.setModelLanguage(" + EditorObject + $".getModel(), \"{languageId}\");"
-        );
+        string script = "monaco.editor.setModelLanguage(" + EditorObject + $".getModel(), \"{languageId}\");";
+        await ExecuteScriptWithLoggingAsync(script);
     }
 
     public async Task SetContentAsync(string contents) {
         string literalContents = Utils.Utils.EncodeJsString(contents);
-        Console.WriteLine(literalContents);
 
-        await webView2.ExecuteScriptAsync(EditorObject + $".setValue({literalContents});");
+        string script = EditorObject + $".setValue({literalContents});";
+        await ExecuteScriptWithLoggingAsync(script);
     }
 
     public async Task<string> GetContent() {
-        return await webView2.ExecuteScriptAsync(EditorObject + ".getValue()");
+        var result = string.Empty;
+        try {
+            result = await webView2.ExecuteScriptAsync(EditorObject + ".getValue()");
+        } catch (Exception ex) {
+            Console.WriteLine($"Error in GetContent: {ex.Message}");
+        }
+        return result;
     }
 
     public void DispatchScript(string script) {
-        Application.Current.Dispatcher.InvokeAsync(async () => await webView2.ExecuteScriptAsync(script));
+        Application.Current.Dispatcher.InvokeAsync(async () => await ExecuteScriptWithLoggingAsync(script));
     }
 }

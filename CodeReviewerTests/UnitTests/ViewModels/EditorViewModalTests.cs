@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
-using CodeReviewer.ViewModels;
 using CodeReviewerTests.UnitTests.Helper;
 using Moq;
 using Wpf.Ui.Appearance;
