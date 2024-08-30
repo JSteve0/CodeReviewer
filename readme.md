@@ -23,7 +23,7 @@ Code Reviewer is a text editor currently in development that integrates advanced
 
 ### Project Images
 
-![App Image](./ReadmeImages/AppImage.png)
+![App Image](./ReadMeImages/AppImage.png)
 
 ### Installation
 - Follow the guide in the latest release

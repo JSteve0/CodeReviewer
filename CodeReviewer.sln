@@ -17,6 +17,5 @@ Global
 		{ECE8954C-49C7-4732-B9D8-02A97113C161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECE8954C-49C7-4732-B9D8-02A97113C161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECE8954C-49C7-4732-B9D8-02A97113C161}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECE8954C-49C7-4732-B9D8-02A97113C161}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

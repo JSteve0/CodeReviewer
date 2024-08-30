@@ -11,8 +11,12 @@
         <Authors>Justin Stevens</Authors>
         <RepositoryUrl>https://github.com/JSteve0/CodeReviewer</RepositoryUrl>
         <Product>CodeReviewer IDE</Product>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
-        <FileVersion>1.0.0</FileVersion>
+        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <FileVersion>0.0.1</FileVersion>
+        <IsPackable>false</IsPackable>
+        <Version>0.0.1</Version>
+        <Description>IDE That Performs Code Reviews Using ChatGPT</Description>
+        <PackageLicenseUrl>https://github.com/JSteve0/CodeReviewer/blob/main/license</PackageLicenseUrl>
     </PropertyGroup>
 
     <ItemGroup>
