@@ -3,6 +3,7 @@
 public static class ProgrammingLanguages {
     public static readonly List<IProgrammingLanguage> Languages = [
         new CSharpProgrammingLanguage(),
+        new JavaProgrammingLanguage(),
         new JavaScriptProgrammingLanguage(),
         new TypeScriptProgrammingLanguage()
     ];
