@@ -23,7 +23,7 @@ public class ProgrammingLanguagesTests {
 
     [Fact]
     public void GetProgrammingLanguageFromExtension_BadInputShouldReturnNull() {
-        IProgrammingLanguage? response = ProgrammingLanguages.GetProgrammingLanguageFromExtension("java");
+        IProgrammingLanguage? response = ProgrammingLanguages.GetProgrammingLanguageFromExtension("c++");
         Assert.Null(response);
     }
 }

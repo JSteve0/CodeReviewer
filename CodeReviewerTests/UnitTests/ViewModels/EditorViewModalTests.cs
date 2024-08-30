@@ -13,6 +13,7 @@ namespace CodeReviewerTests.UnitTests.ViewModels;
 public class EditorViewModelTests {
     public static IEnumerable<object[]> ProgrammingLanguageTestData => new List<object[]> {
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "cs")!, "path/of/the/file.cs" },
+        new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "java")!, "really/long/file/path/for/testing.java" },
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "js")!, "path/of/file.js" },
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "ts")!, "path/file.ts" }
     };
@@ -51,7 +52,7 @@ public class EditorViewModelTests {
         }
 
         // Act
-        await (Task)methodInfo.Invoke(viewModelPackage.EditorViewModal, null)!;
+        methodInfo.Invoke(viewModelPackage.EditorViewModal, [this, EventArgs.Empty]);
 
         // Assert
         var editorModelField =
@@ -175,26 +176,4 @@ public class EditorViewModelTests {
         Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
         Assert.Contains(filePath, viewModel.InfoText);
     }
-
-    /*[Fact]
-    public void OnFileChanged_UpdatesInfoText()
-    {
-        // Arrange
-        var viewModel = CreateViewModel();
-        var editorModel = new EditorModel((EventHandler)null, (EventHandler)null);
-        viewModel.GetType().GetField("_editorModel", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(viewModel, editorModel);
-
-        // Act
-        editorModel.CurrentLanguage = ProgrammingLanguagesEnum.JavaScript;
-        editorModel.FilePath = "NewTestPath";
-
-        // Access private method OnFileChanged using reflection
-        var methodInfo = typeof(EditorViewModal).GetMethod("OnFileChanged", BindingFlags.NonPublic | BindingFlags.Instance);
-        if (methodInfo == null) throw new InvalidOperationException("Method not found");
-
-        methodInfo.Invoke(viewModel, new object[] { null, EventArgs.Empty });
-
-        // Assert
-        Assert.Equal("JavaScript | NewTestPath", viewModel.InfoText);
-    }*/
 }
