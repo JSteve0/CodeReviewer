@@ -76,17 +76,17 @@
                     Command="{Binding SaveFile, Mode=OneWay}"
                     CommandParameter="saveFile"
                     Header="Save" />
-                <MenuItem
+                <!--<MenuItem
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
                     CommandParameter="saveFileAs"
-                    Header="Save As..." />
+                    Header="Save As..." />-->
                 <Separator />
                 <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
+                    Command="{Binding Exit, Mode=OneWay}"
                     CommandParameter="exit"
                     Header="Exit" />
             </ui:MenuItem>
-            <Separator />
+            <!--<Separator />
             <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">
                 <MenuItem
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
@@ -101,7 +101,7 @@
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
                     CommandParameter="viewAbout"
                     Header="About WPF UI" />
-            </ui:MenuItem>
+            </ui:MenuItem>-->
         </Menu>
 
         <ww2:WebView2
@@ -132,7 +132,7 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem>
+            <!--<StatusBarItem>
                 <ui:SymbolIcon Foreground="{DynamicResource TextFillColorSecondaryBrush}" Symbol="BranchFork24" />
             </StatusBarItem>
             <StatusBarItem Grid.Column="1" Margin="0,0,4,0">
@@ -146,7 +146,7 @@
             </StatusBarItem>
             <StatusBarItem Grid.Column="4" Margin="4,0,4,0">
                 <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="Wpf.Ui.sln" />
-            </StatusBarItem>
+            </StatusBarItem>-->
             <StatusBarItem Grid.Column="6">
                 <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding InfoText}" />
             </StatusBarItem>

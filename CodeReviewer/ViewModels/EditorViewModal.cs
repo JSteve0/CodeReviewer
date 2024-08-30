@@ -34,12 +34,14 @@ internal class EditorViewModal : ViewModelBase {
     public OpenFileCommand OpenFile { get; private set; } = null!;
     public NewFileCommand NewFile { get; private set; } = null!;
     public NewWindowCommand OpenNewWindow { get; private set; } = null!;
+    public ExitCommand Exit { get; private set; } = null!;
 
     private void InitializeCommands() {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
         OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
         NewFile = new NewFileCommand(_editorWindowController, _editorModel);
         OpenNewWindow = new NewWindowCommand();
+        Exit = new ExitCommand();
     }
 
     private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {
