@@ -1,4 +1,11 @@
 ﻿using System.Windows;
+using CodeReviewer.Commands;
+using CodeReviewer.Controllers;
+using CodeReviewer.Logging;
+using CodeReviewer.Models;
+using CodeReviewer.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace CodeReviewer;
 
@@ -6,14 +13,43 @@ namespace CodeReviewer;
 /// Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application {
-    protected override void OnStartup(StartupEventArgs e) {
+    private IHost? _host;
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
         base.OnStartup(e);
-        
-        Logging.ConsoleLogger.Instance.LogInfo("Application Starting");
+
+        _host = CreateHostBuilder().Build();
+        _host.Start();
+
+        IServiceProvider serviceProvider = _host.Services;
+
+        var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
     }
 
-    protected override void OnExit(ExitEventArgs e) {
+    private IHostBuilder CreateHostBuilder() =>
+        Host.CreateDefaultBuilder()
+            .ConfigureServices((context, services) =>
+            {
+                // Register services
+                services.AddTransient<IEditorModel, EditorModel>();
+                services.AddTransient<IEditorWindowController, EditorWindowController>();
+                services.AddSingleton<ILogger, ConsoleLogger>();
+
+                // Register commands
+                services.AddTransient<NewFileCommand>();
+                services.AddTransient<OpenFileCommand>();
+                services.AddTransient<SaveFileCommand>();
+                services.AddTransient<NewWindowCommand>();
+
+                // Register the main window
+                services.AddTransient<MainWindow>();
+            });
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        _host?.Dispose();
         base.OnExit(e);
-        Logging.ConsoleLogger.Instance.LogInfo($"Application Closing with exit code: {e.ApplicationExitCode}");
     }
 }
