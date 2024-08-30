@@ -8,7 +8,7 @@ using CodeReviewer.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 
-internal class EditorViewModal : ViewModelBase {
+public class EditorViewModal : ViewModelBase {
     private readonly IEditorModel _editorModel;
     private readonly IEditorWindowController _editorWindowController;
 

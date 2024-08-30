@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
+// ReSharper disable NullnessAnnotationConflictWithJetBrainsAnnotations
+// ReSharper disable InvertIf
 
 namespace CodeReviewer.Utils;
 

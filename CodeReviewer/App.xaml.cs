@@ -12,6 +12,7 @@ namespace CodeReviewer;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
+// ReSharper disable once RedundantExtendsListEntry
 public partial class App : Application {
     private IHost? _host;
 
@@ -30,7 +31,7 @@ public partial class App : Application {
 
     private IHostBuilder CreateHostBuilder() =>
         Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) =>
+            .ConfigureServices((_, services) =>
             {
                 // Register services
                 services.AddTransient<IEditorModel, EditorModel>();
