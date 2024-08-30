@@ -6,6 +6,13 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <PackageId>CodeReviewerIDE</PackageId>
+        <Title>CodeReviewer IDE</Title>
+        <Authors>Justin Stevens</Authors>
+        <RepositoryUrl>https://github.com/JSteve0/CodeReviewer</RepositoryUrl>
+        <Product>CodeReviewer IDE</Product>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
