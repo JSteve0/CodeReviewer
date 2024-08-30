@@ -49,6 +49,7 @@ public class EditorViewModal : ViewModelBase {
     public SaveFileCommand SaveFile { get; private set; } = null!;
     public OpenFileCommand OpenFile { get; private set; } = null!;
     public NewFileCommand NewFile { get; private set; } = null!;
+    public NewWindowCommand OpenNewWindow { get; private set; } = null!;
 
     private async Task InitializeEditorAsync() {
         IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
@@ -70,6 +71,7 @@ public class EditorViewModal : ViewModelBase {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
         OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
         NewFile = new NewFileCommand(_editorWindowController, _editorModel);
+        OpenNewWindow = new NewWindowCommand();
     }
 
     private static void DispatchAsync<TResult>(Func<TResult> callback) {

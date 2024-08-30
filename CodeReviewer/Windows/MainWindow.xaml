@@ -54,7 +54,7 @@
                     <ui:MenuItem.ItemTemplate>
                         <DataTemplate>
                             <TextBlock
-                                Text="{Binding Extension, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
+                                Text="{Binding Name, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding Gesture="LeftClick"
                                                   Command="{Binding DataContext.NewFile, RelativeSource={RelativeSource AncestorType={x:Type ui:MenuItem}}}"
@@ -65,7 +65,7 @@
                     </ui:MenuItem.ItemTemplate>
                 </ui:MenuItem>
                 <MenuItem
-                    Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
+                    Command="{Binding OpenNewWindow, Mode=OneWay}"
                     CommandParameter="newWindow"
                     Header="New window" />
                 <MenuItem
