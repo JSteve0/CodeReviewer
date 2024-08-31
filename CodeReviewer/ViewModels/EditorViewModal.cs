@@ -9,6 +9,7 @@ using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 
 public class EditorViewModal : ViewModelBase {
+
     private readonly IEditorModel _editorModel;
     private readonly IEditorWindowController _editorWindowController;
 
@@ -67,4 +68,5 @@ public class EditorViewModal : ViewModelBase {
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();
     }
+
 }

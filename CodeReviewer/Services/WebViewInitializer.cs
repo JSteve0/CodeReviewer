@@ -8,6 +8,7 @@ using Microsoft.Web.WebView2.Wpf;
 namespace CodeReviewer.Services;
 
 public class WebViewInitializer {
+
     private readonly EventHandler _onInitializedEventHandler;
     private readonly WebView2 _webView;
 
@@ -38,4 +39,5 @@ public class WebViewInitializer {
         ConsoleLogger.Instance.LogInfo("Finished initialization of Web View");
         Application.Current.Dispatcher.InvokeAsync(() => _onInitializedEventHandler.Invoke(this, EventArgs.Empty));
     }
+
 }

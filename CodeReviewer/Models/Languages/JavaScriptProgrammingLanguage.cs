@@ -1,6 +1,7 @@
 ﻿namespace CodeReviewer.Models.Languages;
 
 public class JavaScriptProgrammingLanguage : IProgrammingLanguage {
+
     public string GetStartingCode() {
         return "function helloWorld() {\n\tconsole.log('Hello World!');\n}\n\nhelloWorld();\n";
     }
@@ -11,4 +12,5 @@ public class JavaScriptProgrammingLanguage : IProgrammingLanguage {
     public override string ToString() {
         return Name;
     }
+
 }

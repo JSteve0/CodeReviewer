@@ -1,6 +1,7 @@
 ﻿namespace CodeReviewer.Models.Languages;
 
 public class JavaProgrammingLanguage : IProgrammingLanguage {
+
     public string Extension => "java";
 
     public string Name => "Java";
@@ -13,4 +14,5 @@ public class JavaProgrammingLanguage : IProgrammingLanguage {
     public override string ToString() {
         return Name;
     }
+
 }

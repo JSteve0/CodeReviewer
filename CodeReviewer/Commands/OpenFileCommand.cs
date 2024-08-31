@@ -12,6 +12,7 @@ namespace CodeReviewer.Commands;
 /// </summary>
 public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
     : LoadFileCommandBase(editorWindowController, editorModel) {
+
     /// <summary>
     ///     Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the
     ///     file's content.
@@ -53,4 +54,5 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
     private static string EscapeJavaScriptString(string text) {
         return text.Replace("\"", "\\\"");
     }
+
 }

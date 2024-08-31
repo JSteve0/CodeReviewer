@@ -6,6 +6,7 @@ namespace CodeReviewer.Commands;
 ///     Command to open a new window of the main application.
 /// </summary>
 public class NewWindowCommand : CommandBase {
+
     /// <summary>
     ///     Executes the command to create and display a new instance of the main application window.
     /// </summary>
@@ -16,4 +17,5 @@ public class NewWindowCommand : CommandBase {
         var newWindow = new MainWindow();
         newWindow.Show();
     }
+
 }

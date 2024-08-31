@@ -1,6 +1,7 @@
 ﻿namespace CodeReviewer.Models.Languages;
 
 public static class ProgrammingLanguages {
+
     public static readonly List<IProgrammingLanguage> Languages = [
         new CSharpProgrammingLanguage(),
         new JavaProgrammingLanguage(),
@@ -17,4 +18,5 @@ public static class ProgrammingLanguages {
             Languages.FirstOrDefault(l => l.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
         return language;
     }
+
 }

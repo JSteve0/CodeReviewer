@@ -10,6 +10,7 @@ namespace CodeReviewer.Commands;
 ///     Command to save the current content of the editor to a file.
 /// </summary>
 public class SaveFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : CommandBase {
+
     /// <summary>
     ///     Executes the command to save the editor's content to the file specified in the editor model.
     /// </summary>
@@ -33,4 +34,5 @@ public class SaveFileCommand(IEditorWindowController editorWindowController, IEd
             Logger.LogError($"Error writing to file: {ex.Message}");
         }
     }
+
 }

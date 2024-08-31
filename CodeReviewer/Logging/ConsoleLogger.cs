@@ -4,6 +4,7 @@
 ///     A Singleton implementation of <see cref="ILogger" /> that logs messages to the console with timestamps.
 /// </summary>
 public class ConsoleLogger : ILogger {
+
     // ReSharper disable once InconsistentNaming
     private static readonly Lazy<ConsoleLogger> _instance = new(() => new ConsoleLogger());
 
@@ -15,17 +16,26 @@ public class ConsoleLogger : ILogger {
     /// </summary>
     public static ConsoleLogger Instance => _instance.Value;
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Logs an information message to the console with a timestamp.
+    /// </summary>
+    /// <param name="message">The message to log.</param>
     public void LogInfo(string message) {
         Log("INFO", message);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Logs a warning message to the console with a timestamp.
+    /// </summary>
+    /// <param name="message">The message to log.</param>
     public void LogWarning(string message) {
         Log("WARNING", message);
     }
 
-    /// <inheritdoc />
+    /// <summary>
+    ///     Logs an error message to the console with a timestamp.
+    /// </summary>
+    /// <param name="message">The message to log.</param>
     public void LogError(string message) {
         Log("ERROR", message);
     }
@@ -34,4 +44,5 @@ public class ConsoleLogger : ILogger {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
         Console.WriteLine($"{timestamp} [{level}] {message}");
     }
+
 }

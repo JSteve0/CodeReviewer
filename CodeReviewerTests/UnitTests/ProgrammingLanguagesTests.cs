@@ -3,6 +3,7 @@ using CodeReviewer.Models.Languages;
 namespace CodeReviewerTests.UnitTests;
 
 public class ProgrammingLanguagesTests {
+
     [Fact]
     public void GetProgrammingLanguageFromExtension_ShouldReturnCorrectProgrammingLanguage() {
         var javaScriptString = new JavaScriptProgrammingLanguage().ToString();
@@ -26,4 +27,5 @@ public class ProgrammingLanguagesTests {
         IProgrammingLanguage? response = ProgrammingLanguages.GetProgrammingLanguageFromExtension("c++");
         Assert.Null(response);
     }
+
 }

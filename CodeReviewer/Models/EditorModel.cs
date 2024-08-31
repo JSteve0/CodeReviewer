@@ -3,6 +3,7 @@
 namespace CodeReviewer.Models;
 
 public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) : IEditorModel {
+
     private IProgrammingLanguage? _currentLanguage;
     private string? _filePath;
 
@@ -28,4 +29,5 @@ public class EditorModel(EventHandler languageChangedEvent, EventHandler filePat
 
         return $"{languageText} | {fileText}";
     }
+
 }

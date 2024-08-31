@@ -4,6 +4,7 @@ using CodeReviewer.Models.Languages;
 namespace CodeReviewerTests.UnitTests;
 
 public class EditorModelTests {
+
     private readonly EditorModel _editorModel;
     private bool _filePathChanged;
     private bool _languageChanged;
@@ -89,4 +90,5 @@ public class EditorModelTests {
         if (newFilePath != null)
             Assert.Equal(newFilePath, _editorModel.FilePath);
     }
+
 }

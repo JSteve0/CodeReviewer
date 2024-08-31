@@ -9,6 +9,7 @@ namespace CodeReviewer.Commands;
 /// </summary>
 public class NewFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
     : LoadFileCommandBase(editorWindowController, editorModel) {
+
     /// <summary>
     ///     Executes the command to create a new editor instance with the specified programming language.
     ///     Retrieves the programming language from the command parameter and initializes the editor.
@@ -20,8 +21,9 @@ public class NewFileCommand(IEditorWindowController editorWindowController, IEdi
     public override void Execute(object? parameter) {
         var languageName = parameter?.ToString();
         IProgrammingLanguage? language = ProgrammingLanguages.Languages
-            .FirstOrDefault(lang => lang.ToString() == languageName);
+                                                             .FirstOrDefault(lang => lang.ToString() == languageName);
 
         CreateNewEditor(language);
     }
+
 }
