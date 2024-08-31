@@ -7,6 +7,9 @@ using Microsoft.Web.WebView2.Wpf;
 
 namespace CodeReviewer.Services;
 
+/// <summary>
+///     Initializes the WebView control with the necessary configuration and event handlers.
+/// </summary>
 public class WebViewInitializer {
 
     private readonly EventHandler _onInitializedEventHandler;
@@ -17,6 +20,7 @@ public class WebViewInitializer {
         _onInitializedEventHandler += onInitializedEventHandler;
         Initialize();
     }
+
 
     private void Initialize() {
         ConsoleLogger.Instance.LogInfo("Initializing Web View");

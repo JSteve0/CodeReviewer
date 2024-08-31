@@ -8,6 +8,9 @@ using CodeReviewer.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 
+/// <summary>
+///     Represents the view model for the editor view in the application.
+/// </summary>
 public class EditorViewModal : ViewModelBase {
 
     private readonly IEditorModel _editorModel;
