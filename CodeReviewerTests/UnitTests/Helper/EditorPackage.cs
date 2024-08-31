@@ -5,6 +5,7 @@ using Moq;
 namespace CodeReviewerTests.UnitTests.Helper;
 
 public class EditorPackage {
+
     public EditorPackage() {
         WebViewMock = new Mock<WebView2>();
         EditorWindowController = new Mock<IEditorWindowController>();
@@ -16,4 +17,5 @@ public class EditorPackage {
     public Mock<IEditorWindowController> EditorWindowController { get; set; }
 
     public EditorViewModal EditorViewModal { get; set; }
+
 }

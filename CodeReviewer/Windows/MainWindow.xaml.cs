@@ -3,6 +3,7 @@
 namespace CodeReviewer.Windows;
 
 public partial class MainWindow {
+
     public MainWindow() {
         InitializeComponent();
 
@@ -10,4 +11,5 @@ public partial class MainWindow {
 
         DataContext = editorViewModal;
     }
+
 }

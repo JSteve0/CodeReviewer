@@ -11,9 +11,12 @@ using Wpf.Ui.Appearance;
 namespace CodeReviewerTests.UnitTests.ViewModels;
 
 public class EditorViewModelTests {
+
     public static IEnumerable<object[]> ProgrammingLanguageTestData => new List<object[]> {
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "cs")!, "path/of/the/file.cs" },
-        new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "java")!, "really/long/file/path/for/testing.java" },
+        new object[] {
+            ProgrammingLanguages.Languages.Find(pl => pl.Extension == "java")!, "really/long/file/path/for/testing.java"
+        },
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "js")!, "path/of/file.js" },
         new object[] { ProgrammingLanguages.Languages.Find(pl => pl.Extension == "ts")!, "path/file.ts" }
     };
@@ -28,20 +31,20 @@ public class EditorViewModelTests {
 
         // Set up mocks to return expected values
         viewModelPackage.EditorWindowController
-            .Setup(m => m.CreateAsync())
-            .Returns(Task.CompletedTask);
+                        .Setup(m => m.CreateAsync())
+                        .Returns(Task.CompletedTask);
 
         viewModelPackage.EditorWindowController
-            .Setup(m => m.SetThemeAsync(It.IsAny<ApplicationTheme>()))
-            .Returns(Task.CompletedTask);
+                        .Setup(m => m.SetThemeAsync(It.IsAny<ApplicationTheme>()))
+                        .Returns(Task.CompletedTask);
 
         viewModelPackage.EditorWindowController
-            .Setup(m => m.SetLanguageAsync(It.IsAny<IProgrammingLanguage>()))
-            .Returns(Task.CompletedTask);
+                        .Setup(m => m.SetLanguageAsync(It.IsAny<IProgrammingLanguage>()))
+                        .Returns(Task.CompletedTask);
 
         viewModelPackage.EditorWindowController
-            .Setup(m => m.SetContentAsync(It.IsAny<string>()))
-            .Returns(Task.CompletedTask);
+                        .Setup(m => m.SetContentAsync(It.IsAny<string>()))
+                        .Returns(Task.CompletedTask);
 
         // Access private method InitializeEditorAsync using reflection
         var methodInfo =
@@ -176,4 +179,5 @@ public class EditorViewModelTests {
         Assert.Contains(programmingLanguage.ToString(), viewModel.InfoText);
         Assert.Contains(filePath, viewModel.InfoText);
     }
+
 }

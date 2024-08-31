@@ -7,6 +7,7 @@
 namespace CodeReviewerTests.UnitTests.Utils;
 
 public class UtilsTests {
+
     [Fact]
     public void EncodeJsString_NormalString_ReturnsCorrectlyEncodedString() {
         var input = "Hello, World!";
@@ -83,4 +84,5 @@ public class UtilsTests {
 
         Assert.Throws<NullReferenceException>(() => SrcUtils.EncodeJsString(input!));
     }
+
 }

@@ -3,6 +3,7 @@
 namespace CodeReviewer.Utils;
 
 public static class Utils {
+
     /// <summary>
     ///     Encodes a string to be represented as a string literal. The format
     ///     is essentially a JSON string.
@@ -56,4 +57,5 @@ public static class Utils {
 
         return sb.ToString();
     }
+
 }

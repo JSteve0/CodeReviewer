@@ -14,6 +14,7 @@ namespace CodeReviewer;
 /// </summary>
 // ReSharper disable once RedundantExtendsListEntry
 public partial class App : Application {
+
     private IHost? _host;
 
     protected override void OnStartup(StartupEventArgs e) {
@@ -30,25 +31,26 @@ public partial class App : Application {
 
     private IHostBuilder CreateHostBuilder() {
         return Host.CreateDefaultBuilder()
-            .ConfigureServices((_, services) => {
-                // Register services
-                services.AddTransient<IEditorModel, EditorModel>();
-                services.AddTransient<IEditorWindowController, EditorWindowController>();
-                services.AddSingleton<ILogger, ConsoleLogger>();
+                   .ConfigureServices((_, services) => {
+                       // Register services
+                       services.AddTransient<IEditorModel, EditorModel>();
+                       services.AddTransient<IEditorWindowController, EditorWindowController>();
+                       services.AddSingleton<ILogger, ConsoleLogger>();
 
-                // Register commands
-                services.AddTransient<NewFileCommand>();
-                services.AddTransient<OpenFileCommand>();
-                services.AddTransient<SaveFileCommand>();
-                services.AddTransient<NewWindowCommand>();
+                       // Register commands
+                       services.AddTransient<NewFileCommand>();
+                       services.AddTransient<OpenFileCommand>();
+                       services.AddTransient<SaveFileCommand>();
+                       services.AddTransient<NewWindowCommand>();
 
-                // Register the main window
-                services.AddTransient<MainWindow>();
-            });
+                       // Register the main window
+                       services.AddTransient<MainWindow>();
+                   });
     }
 
     protected override void OnExit(ExitEventArgs e) {
         _host?.Dispose();
         base.OnExit(e);
     }
+
 }

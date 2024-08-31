@@ -9,10 +9,11 @@ namespace CodeReviewer.Commands;
 ///     ability to execute changes.
 /// </summary>
 public abstract class CommandBase : ICommand {
+
     protected readonly ILogger Logger = ConsoleLogger.Instance;
 
     /// <summary>
-    ///     Occurs when changes occur that affect whether or not the command can execute.
+    ///     Occurs when changes occur that affect whether the command can execute.
     /// </summary>
     public event EventHandler? CanExecuteChanged;
 
@@ -43,4 +44,5 @@ public abstract class CommandBase : ICommand {
     protected void OnCanExecuteChanged() {
         CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
+
 }
