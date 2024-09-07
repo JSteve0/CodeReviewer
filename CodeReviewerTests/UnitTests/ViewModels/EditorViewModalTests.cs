@@ -96,8 +96,20 @@ public class EditorViewModelTests {
 
         // Assert
         Assert.NotNull(viewModel.SaveFile);
+        Assert.True(viewModel.SaveFile.CanExecute(null));
+        
         Assert.NotNull(viewModel.OpenFile);
+        Assert.True(viewModel.OpenFile.CanExecute(null));
+        
         Assert.NotNull(viewModel.NewFile);
+        Assert.True(viewModel.NewFile.CanExecute(null));
+
+        Assert.NotNull(viewModel.OpenNewWindow);
+        Assert.True(viewModel.OpenNewWindow.CanExecute(null));
+
+        Assert.NotNull(viewModel.Exit);
+        Assert.True(viewModel.Exit.CanExecute(null));
+
     }
 
     [StaTheory]
@@ -140,12 +152,12 @@ public class EditorViewModelTests {
         Assert.Contains(filePath, viewModel.InfoText);
     }
 
-    [StaFact]
-    public void OnProgrammingLanguageChanged_UpdatesInfoTextForJavaScript() {
+    [StaTheory]
+    [MemberData(nameof(ProgrammingLanguageTestData))]
+    public void OnFileChanged_UpdatesInfoText(IProgrammingLanguage programmingLanguage,
+        string filePath) {
         // Arrange
         var mockEditorModel = new Mock<IEditorModel>();
-        IProgrammingLanguage programmingLanguage = ProgrammingLanguages.Languages.Find(pl => pl.Extension == "js")!;
-        const string filePath = "path/of/file.js";
 
         // Set up the properties to return specific values
         mockEditorModel.SetupGet(m => m.CurrentLanguage).Returns(programmingLanguage);
@@ -165,10 +177,10 @@ public class EditorViewModelTests {
 
         editorModelField.SetValue(viewModel, mockEditorModel.Object);
 
-        var methodInfo = typeof(EditorViewModal).GetMethod("OnProgrammingLanguageChanged",
+        var methodInfo = typeof(EditorViewModal).GetMethod("OnFileChanged",
             BindingFlags.NonPublic | BindingFlags.Instance);
         if (methodInfo == null) {
-            Assert.Fail("Method OnProgrammingLanguageChanged not found.");
+            Assert.Fail("Method OnFileChanged not found.");
             return;
         }
 
