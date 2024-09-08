@@ -13,6 +13,7 @@ Code Reviewer is a text editor currently in development that integrates AI featu
   - [Author(s)](#authors)
   - [Project Description](#project-description)
   - [Table of Contents](#table-of-contents)
+  - [Release](#release)
   - [Current Features](#current-features)
   - [Future Features](#future-features)
   - [Project Images](#project-images)
@@ -20,6 +21,8 @@ Code Reviewer is a text editor currently in development that integrates AI featu
   - [Developing and Contributing](#developing-and-contributing)
   - [License](#license)
 
+## Release
+See [Releases](https://github.com/JSteve0/CodeReviewer/releases) for a full list of releases.
 
 ## Current Features
 
