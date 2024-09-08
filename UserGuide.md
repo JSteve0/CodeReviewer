@@ -1,4 +1,5 @@
 # CodeReviewer User Guide
+User Guide for v0.1.0 see the [changelog](./changelog.md) for a full list of changes
 
 ## Table of Contents
 - [CodeReviewer User Guide](#codereviewer-user-guide)
@@ -14,13 +15,12 @@
     - [Information Panel](#information-panel)
     - [Managing Multiple Windows](#managing-multiple-windows)
   - [Contact and Support](#contact-and-support)
+  - [Footnotes](#footnotes)
 
 ---
 
 ## Introduction
 Welcome to **CodeReviewer**, a code editor designed for developers who want a lightweight yet powerful tool for code review[^1] and editing. With support for multiple programming languages and advanced features like IntelliSense and syntax highlighting, CodeReviewer streamlines the coding experience.
-
-[^1]: Code Review features have not been implemented in this version yet.
 
 ## System Requirements
 - Operating System: Windows 10 or later
@@ -62,3 +62,6 @@ You can open multiple instances of the editor in separate windows. To do this, u
 ## Contact and Support
 If you encounter any issues or have any feedback, please reach out via:
 - GitHub Issues: [Submit a bug report](https://github.com/JSteve0/CodeReviewer/issues)
+
+## Footnotes
+[^1]: Code Review features have not been implemented in this version yet.

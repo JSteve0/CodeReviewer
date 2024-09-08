@@ -1,27 +1,4 @@
-﻿# Change Log
-
-## 0.1.0 Initial Release - (Date)
-
-- Added the [Monaco Editor](https://microsoft.github.io/monaco-editor/) to the application
-  - Supports basic syntax colorization
-  - Supports IntelliSense and code validation
-- Added support for opening any file
-- Added save file command for files opened from local drive
-- Added create file command for supported Programming Languages
-  - Added starter code when creating these files
-- Added support for the following Programming Languages
-  - CSharp
-  - Java
-  - JavaScript
-  - TypeScript
-- Added New Window Command to have multiple editors open at the same time via separate applications
-- Added full screen and screen resizing support
-- Added info text at the bottom of the editor
-  - Displays the current Programming Language if one is detected
-  - Displays the opened file name and path if one is opened
-- Added Exit Command
-
-# Changelog
+﻿# Changelog
 
 ## Version 0.1.0 - Initial Release (Date)
 
@@ -56,4 +33,4 @@
     - The name and path of the currently opened file, if applicable.
 
 - **Commands**:
-  - Added an "Exit" command to close the application.
+  - Added an "Exit" command to close the current window.

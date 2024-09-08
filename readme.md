@@ -6,7 +6,7 @@
 
 ## Project Description
 
-Code Reviewer is a text editor currently in development that integrates advanced AI features for enhanced coding assistance. The application aims to support multiple programming languages file creation, editing, and validation.
+Code Reviewer is a text editor currently in development that integrates AI features for enhanced coding assistance.
 
 ## Table of Contents
 - [Code Reviewer](#code-reviewer)
@@ -18,7 +18,7 @@ Code Reviewer is a text editor currently in development that integrates advanced
   - [Project Images](#project-images)
   - [User Guide](#user-guide)
   - [Developing and Contributing](#developing-and-contributing)
-    - [License](#license)
+  - [License](#license)
 
 
 ## Current Features
@@ -57,6 +57,6 @@ Please see the [User Guide](./UserGuide.md) for installation and usage informati
   - Use an IDE like Visual Studio or JetBrains Rider to run the project.
   - I'll list alternative ways to run the application here in the future.
 
-### License
+## License
 
 This project is licensed under the [MIT License](./LICENSE).
