@@ -54,7 +54,7 @@ Welcome to **CodeReviewer**, a code editor designed for developers who want a li
   - The currently detected programming language.
   - The name and path of the opened file.
 
-### Managing Multiple Windows 
+### Managing Multiple Windows
 You can open multiple instances of the editor in separate windows. To do this, use the **New Window** command:
 1. Click **File > New Window** to open another editor instance.
 2. Each window functions independently, allowing you to work on different files simultaneously.
