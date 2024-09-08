@@ -51,8 +51,8 @@ Please see the [User Guide](./UserGuide.md) for installation and usage informati
     ```
 2. **Download and install the code editor**:
     1. Download [Monaco-Editor Version 0.5](https://registry.npmjs.org/monaco-editor/-/monaco-editor-0.50.0.tgz) Zip from this link.
-   1. Extract the contents 
-   2. Move the `package/min` folder in `CodeReviewer/MonacoEditor`
+    2. Extract the contents 
+    3. Move the `package/min` folder in `CodeReviewer/MonacoEditor`
 3. **Run the application**:
   - Use an IDE like Visual Studio or JetBrains Rider to run the project.
   - I'll list alternative ways to run the application here in the future.

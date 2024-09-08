@@ -4,9 +4,10 @@ using CodeReviewer.Logging;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
 using CodeReviewer.Services;
-using CodeReviewer.ViewModels;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
+
+namespace CodeReviewer.ViewModels;
 
 /// <summary>
 ///     Represents the view model for the editor view in the application.

@@ -8,6 +8,7 @@
                  xmlns:local="clr-namespace:CodeReviewer.Models.Languages"
                  xmlns:utils="clr-namespace:CodeReviewer.Utils"
                  xmlns:global="clr-namespace:"
+                 xmlns:viewModels="clr-namespace:CodeReviewer.ViewModels"
                  Title="Code Reviewer"
                  Width="1250"
                  Height="652"
@@ -17,7 +18,7 @@
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowStartupLocation="CenterOwner"
                  mc:Ignorable="d"
-                 d:DataContext="{d:DesignInstance global:EditorViewModal}"
+                 d:DataContext="{d:DesignInstance viewModels:EditorViewModal}"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica"
                  WindowCornerPreference="Default">
