@@ -29,15 +29,24 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
     /// <returns>A task representing the asynchronous operation.</returns>
     public async Task SetThemeAsync(ApplicationTheme appApplicationTheme) {
         const string uiThemeName = "wpf-ui-app-theme";
+        
+        // TODO: Add check to make sure it is not Unknown or high contrast. If it is one of those, Log error.
         string baseMonacoTheme = appApplicationTheme == ApplicationTheme.Light ? "vs" : "vs-dark";
 
-        var script = $$$"""
-                        monaco.editor.defineTheme('{{{uiThemeName}}}', {
-                            base: '{{{baseMonacoTheme}}}',
+        var script = $$"""
+                        monaco.editor.defineTheme('{{uiThemeName}}', {
+                            base: '{{baseMonacoTheme}}',
                             inherit: true,
-                            rules: [{ background: 'FFFFFF00' }],
-                            colors: {'editor.background': '#FFFFFF00','minimap.background': '#FFFFFF00',}});
-                        monaco.editor.setTheme('{{{uiThemeName}}}');
+                            rules: [{
+                                "background": "1e1e1e00",
+                                "token": ""
+                            }],
+                            colors: {
+                                'editor.background': '#00000000',
+                                'minimap.background': '#00000000'
+                            }
+                        });
+                        monaco.editor.setTheme('{{uiThemeName}}');
                         """;
         await ExecuteScriptWithLoggingAsync(script);
     }

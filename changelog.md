@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+## Next Release: Version (0.1.1) - (TBD)
+
+### **Bug Fixes**
+- Updated scrollbar color to match the dark mode theme.
+
 ## Version 0.1.0 - Initial Release (9/8/2024)
 
 ### Features
