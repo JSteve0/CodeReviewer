@@ -1,6 +1,6 @@
 ﻿# Changelog
 
-## Version 0.1.0 - Initial Release (Date)
+## Version 0.1.0 - Initial Release (9/8/2024)
 
 ### Features
 - **Monaco Editor Integration**:
