@@ -97,3 +97,5 @@ venv/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+
+Doxygen/
