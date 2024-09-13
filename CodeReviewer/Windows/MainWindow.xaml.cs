@@ -8,7 +8,7 @@ public partial class MainWindow {
     public MainWindow() {
         InitializeComponent();
 
-        var editorViewModal = new EditorViewModal(WebView, new EditorWindowController(WebView));
+        var editorViewModal = new EditorViewModal(WebView, new EditorWindowController(WebView), this);
 
         DataContext = editorViewModal;
     }

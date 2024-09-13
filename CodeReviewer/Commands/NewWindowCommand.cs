@@ -1,11 +1,16 @@
-﻿using CodeReviewer.Windows;
+﻿using System.Windows.Input;
+using CodeReviewer.Windows;
 
 namespace CodeReviewer.Commands;
 
 /// <summary>
-///     Command to open a new window of the main application.
+///     Command to open a new editor window in the main application.
 /// </summary>
-public class NewWindowCommand : CommandBase {
+public class NewWindowCommand : DelegateCommand {
+
+    public override Key GestureKey { get; protected set; } = Key.N;
+    public override string GestureKeyText { get; protected set; } = "Ctrl+Shift+N";
+    public override ModifierKeys GestureModifier { get; protected set; } = ModifierKeys.Control | ModifierKeys.Shift;
 
     /// <summary>
     ///     Executes the command to create and display a new instance of the main application window.

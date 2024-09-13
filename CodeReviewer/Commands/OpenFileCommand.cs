@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using System.Windows.Input;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
@@ -12,6 +13,10 @@ namespace CodeReviewer.Commands;
 /// </summary>
 public class OpenFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
     : LoadFileCommandBase(editorWindowController, editorModel) {
+
+    public override Key GestureKey { get; protected set; } = Key.O;
+    public override string GestureKeyText { get; protected set; } = "Crtl+O";
+    public override ModifierKeys GestureModifier { get; protected set; } = ModifierKeys.Control;
 
     /// <summary>
     ///     Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the
@@ -27,7 +32,10 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
 
         bool? isFileSelected = openFileDialog.ShowDialog();
 
-        if (isFileSelected != true) return;
+        if (isFileSelected != true) {
+            Logger.LogWarning("No file selected");
+            return;
+        }
 
         string filePath = openFileDialog.FileName;
 

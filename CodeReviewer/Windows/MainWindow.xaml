@@ -27,6 +27,28 @@
                             ObjectType="{x:Type local:ProgrammingLanguages}" />
         <utils:UpperCaseWithSuffixConverter x:Key="UpperCaseWithSuffixConverter" />
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding 
+                    Command="{Binding ToggleFullScreen, Mode=OneWay}" 
+                    Key="{Binding ToggleFullScreen.GestureKey}"
+                    Modifiers="{Binding ToggleFullScreen.GestureModifier}"/>
+        <KeyBinding 
+            Command="{Binding OpenNewWindow, Mode=OneWay}" 
+            Key="{Binding OpenNewWindow.GestureKey}"
+            Modifiers="{Binding OpenNewWindow.GestureModifier}"/>
+        <KeyBinding 
+            Command="{Binding SaveFile, Mode=OneWay}" 
+            Key="{Binding SaveFile.GestureKey}"
+            Modifiers="{Binding SaveFile.GestureModifier}"/>
+        <KeyBinding 
+            Command="{Binding OpenFile, Mode=OneWay}" 
+            Key="{Binding OpenFile.GestureKey}"
+            Modifiers="{Binding OpenFile.GestureModifier}"/>
+        <KeyBinding 
+            Command="{Binding NewFile, Mode=OneWay}" 
+            Key="{Binding NewFile.GestureKey}"
+            Modifiers="{Binding NewFile.GestureModifier}"/>
+    </Window.InputBindings>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,7 +69,7 @@
             Background="Transparent"
             FontSize="14">
             <!--New File tab-->
-            <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}">
+            <ui:MenuItem Header="File" Icon="{ui:SymbolIcon DocumentSplitHint20}" InputGestureText="{Binding NewFile.GestureKeyText}">
                 <ui:MenuItem Header="New File">
                     <ui:MenuItem.ItemsSource>
                         <Binding Source="{StaticResource GetAllLanguagesProvider}" />
@@ -66,17 +88,15 @@
                     </ui:MenuItem.ItemTemplate>
                 </ui:MenuItem>
                 <MenuItem
-                    Command="{Binding OpenNewWindow, Mode=OneWay}"
-                    CommandParameter="newWindow"
-                    Header="New window" />
-                <MenuItem
                     Command="{Binding OpenFile, Mode=OneWay}"
                     CommandParameter="openFile"
-                    Header="Open..." />
+                    Header="Open..." 
+                    InputGestureText="{Binding OpenFile.GestureKeyText}" />
                 <MenuItem
                     Command="{Binding SaveFile, Mode=OneWay}"
                     CommandParameter="saveFile"
-                    Header="Save" />
+                    Header="Save" 
+                    InputGestureText="{Binding SaveFile.GestureKeyText}" />
                 <!--<MenuItem
                     Command="{Binding ViewModel.MenuActionCommand, Mode=OneWay}"
                     CommandParameter="saveFileAs"
@@ -86,6 +106,17 @@
                     Command="{Binding Exit, Mode=OneWay}"
                     CommandParameter="exit"
                     Header="Exit" />
+            </ui:MenuItem>
+            <ui:MenuItem Header="Window" Icon="{ui:SymbolIcon ChatHelp20}">
+                <MenuItem
+                    Command="{Binding OpenNewWindow, Mode=OneWay}"
+                    CommandParameter="newWindow"
+                    Header="New window" 
+                    InputGestureText="{Binding OpenNewWindow.GestureKeyText}"/>
+                <MenuItem
+                    Command="{Binding ToggleFullScreen, Mode=OneWay}"
+                    Header="Toggle Full Screen" 
+                    InputGestureText="{Binding ToggleFullScreen.GestureKeyText}" />
             </ui:MenuItem>
             <!--<Separator />
             <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">

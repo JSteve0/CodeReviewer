@@ -2,6 +2,19 @@
 
 ## Next Release: Version (0.1.1) - (TBD)
 
+### **Features**
+- Added keyboard shortcuts!
+  - New file: Ctrl+N
+  - Open new window: Ctrl+Shift+N
+  - Save file: Ctrl+S
+  - Open file: Ctrl+O
+- Menu tabs now display the relevant shortcut if one exists
+- Added fullscreen command to the 'Window' tab
+  - Use F11 as a shortcut
+
+### **Changes**
+- Added 'Window' tab and move the new window button to that tab
+
 ### **Bug Fixes**
 - Updated scrollbar color to match the dark mode theme.
 

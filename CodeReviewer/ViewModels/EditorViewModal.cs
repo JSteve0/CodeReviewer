@@ -1,4 +1,5 @@
-﻿using CodeReviewer.Commands;
+﻿using System.Windows;
+using CodeReviewer.Commands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Logging;
 using CodeReviewer.Models;
@@ -6,6 +7,7 @@ using CodeReviewer.Models.Languages;
 using CodeReviewer.Services;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace CodeReviewer.ViewModels;
 
@@ -16,13 +18,15 @@ public class EditorViewModal : ViewModelBase {
 
     private readonly IEditorModel _editorModel;
     private readonly IEditorWindowController _editorWindowController;
+    private readonly FluentWindow _mainWindow;
 
     private string _infoText = "";
 
-    public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController) {
+    public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController, FluentWindow mainWindow) {
         _editorWindowController = editorWindowController;
         _editorModel = new EditorModel(OnProgrammingLanguageChanged, OnFileChanged);
         _ = new WebViewInitializer(webView, InitializeEditorAsync);
+        _mainWindow = mainWindow;
 
         InitializeCommands();
     }
@@ -40,6 +44,7 @@ public class EditorViewModal : ViewModelBase {
     public NewFileCommand NewFile { get; private set; } = null!;
     public NewWindowCommand OpenNewWindow { get; private set; } = null!;
     public ExitCommand Exit { get; private set; } = null!;
+    public ToggleFullScreenCommand ToggleFullScreen { get; private set; } = null!;
 
     private void InitializeCommands() {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
@@ -47,6 +52,7 @@ public class EditorViewModal : ViewModelBase {
         NewFile = new NewFileCommand(_editorWindowController, _editorModel);
         OpenNewWindow = new NewWindowCommand();
         Exit = new ExitCommand();
+        ToggleFullScreen = new ToggleFullScreenCommand(ToggleFullScreenHandler);
     }
 
     private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {
@@ -72,5 +78,8 @@ public class EditorViewModal : ViewModelBase {
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();
     }
+
+    private void ToggleFullScreenHandler(object? sender, EventArgs e) => _mainWindow.WindowState =
+        _mainWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
 
 }

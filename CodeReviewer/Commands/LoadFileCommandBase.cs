@@ -8,7 +8,7 @@ namespace CodeReviewer.Commands;
 ///     Base class for commands that involve loading files into the editor.
 /// </summary>
 public abstract class LoadFileCommandBase(IEditorWindowController editorWindowController, IEditorModel editorModel)
-    : CommandBase {
+    : DelegateCommand {
 
     /// <summary>
     ///     Sets the programming language for the editor and updates the model.
