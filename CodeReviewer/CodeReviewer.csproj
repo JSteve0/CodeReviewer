@@ -20,7 +20,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
 
     <ItemGroup>

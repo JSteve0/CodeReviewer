@@ -6,6 +6,7 @@ public static class ProgrammingLanguages {
     ///     Provides a reference to all the programming languages.
     /// </summary>
     public static readonly List<IProgrammingLanguage> Languages = [
+        new CPlusPlusProgrammingLanguage(),
         new CSharpProgrammingLanguage(),
         new JavaProgrammingLanguage(),
         new JavaScriptProgrammingLanguage(),

@@ -17,18 +17,6 @@ public partial class App : Application {
 
     private IHost? _host;
 
-    protected override void OnStartup(StartupEventArgs e) {
-        base.OnStartup(e);
-
-        _host = CreateHostBuilder().Build();
-        _host.Start();
-
-        IServiceProvider serviceProvider = _host.Services;
-
-        var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-        mainWindow.Show();
-    }
-
     private IHostBuilder CreateHostBuilder() {
         return Host.CreateDefaultBuilder()
                    .ConfigureServices((_, services) => {
@@ -51,6 +39,18 @@ public partial class App : Application {
     protected override void OnExit(ExitEventArgs e) {
         _host?.Dispose();
         base.OnExit(e);
+    }
+
+    protected override void OnStartup(StartupEventArgs e) {
+        base.OnStartup(e);
+
+        _host = CreateHostBuilder().Build();
+        _host.Start();
+
+        IServiceProvider serviceProvider = _host.Services;
+
+        var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
     }
 
 }

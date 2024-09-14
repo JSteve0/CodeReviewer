@@ -17,6 +17,14 @@ public class ConsoleLogger : ILogger {
     public static ConsoleLogger Instance => _instance.Value;
 
     /// <summary>
+    ///     Logs an error message to the console with a timestamp.
+    /// </summary>
+    /// <param name="message">The message to log.</param>
+    public void LogError(string message) {
+        Log("ERROR", message);
+    }
+
+    /// <summary>
     ///     Logs an information message to the console with a timestamp.
     /// </summary>
     /// <param name="message">The message to log.</param>
@@ -30,14 +38,6 @@ public class ConsoleLogger : ILogger {
     /// <param name="message">The message to log.</param>
     public void LogWarning(string message) {
         Log("WARNING", message);
-    }
-
-    /// <summary>
-    ///     Logs an error message to the console with a timestamp.
-    /// </summary>
-    /// <param name="message">The message to log.</param>
-    public void LogError(string message) {
-        Log("ERROR", message);
     }
 
     private void Log(string level, string message) {

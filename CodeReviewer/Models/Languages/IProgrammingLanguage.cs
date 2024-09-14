@@ -10,7 +10,9 @@ public interface IProgrammingLanguage {
     /// <summary>
     ///     Represents the name of a programming language.
     /// </summary>
-    string Name { get; }
+    string MonacoName { get; }
+
+    string DisplayName { get; }
 
     /// <summary>
     ///     Retrieves the starting code for a programming language.

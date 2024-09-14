@@ -25,7 +25,7 @@ public class NewFileCommand(IEditorWindowController editorWindowController, IEdi
     /// </param>
     public override void Execute(object? parameter) {
         string languageName = parameter?.ToString() ?? "CSharp";
-        IProgrammingLanguage? language = 
+        IProgrammingLanguage? language =
             ProgrammingLanguages.Languages.FirstOrDefault(lang => lang.ToString() == languageName);
 
         CreateNewEditor(language);

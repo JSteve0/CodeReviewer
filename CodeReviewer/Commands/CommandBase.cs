@@ -13,11 +13,6 @@ public abstract class CommandBase : ICommand {
     protected readonly ILogger Logger = ConsoleLogger.Instance;
 
     /// <summary>
-    ///     Occurs when changes occur that affect whether the command can execute.
-    /// </summary>
-    public event EventHandler? CanExecuteChanged;
-
-    /// <summary>
     ///     Determines whether the command can execute.
     ///     By default, this method returns <c>true</c>.
     /// </summary>
@@ -29,6 +24,11 @@ public abstract class CommandBase : ICommand {
     public virtual bool CanExecute(object? parameter) {
         return true;
     }
+
+    /// <summary>
+    ///     Occurs when changes occur that affect whether the command can execute.
+    /// </summary>
+    public event EventHandler? CanExecuteChanged;
 
     /// <summary>
     ///     Executes the command.

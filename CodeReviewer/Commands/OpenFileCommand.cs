@@ -19,6 +19,15 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
     public override ModifierKeys GestureModifier { get; protected set; } = ModifierKeys.Control;
 
     /// <summary>
+    ///     Escapes special characters in the text for use in JavaScript.
+    /// </summary>
+    /// <param name="text">The text to escape.</param>
+    /// <returns>The escaped text.</returns>
+    private static string EscapeJavaScriptString(string text) {
+        return text.Replace("\"", "\\\"");
+    }
+
+    /// <summary>
     ///     Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the
     ///     file's content.
     /// </summary>
@@ -52,15 +61,6 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
         catch (Exception ex) {
             Logger.LogError($"Error opening file: {ex.Message}");
         }
-    }
-
-    /// <summary>
-    ///     Escapes special characters in the text for use in JavaScript.
-    /// </summary>
-    /// <param name="text">The text to escape.</param>
-    /// <returns>The escaped text.</returns>
-    private static string EscapeJavaScriptString(string text) {
-        return text.Replace("\"", "\\\"");
     }
 
 }

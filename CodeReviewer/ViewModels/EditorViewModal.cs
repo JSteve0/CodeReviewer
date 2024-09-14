@@ -22,6 +22,7 @@ public class EditorViewModal : ViewModelBase {
 
     private string _infoText = "";
 
+
     public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController, FluentWindow mainWindow) {
         _editorWindowController = editorWindowController;
         _editorModel = new EditorModel(OnProgrammingLanguageChanged, OnFileChanged);
@@ -33,10 +34,7 @@ public class EditorViewModal : ViewModelBase {
 
     public string InfoText {
         get => _infoText;
-        private set {
-            _infoText = value;
-            OnPropertyChanged();
-        }
+        private set => SetField(ref _infoText, value);
     }
 
     public SaveFileCommand SaveFile { get; private set; } = null!;
@@ -55,14 +53,6 @@ public class EditorViewModal : ViewModelBase {
         ToggleFullScreen = new ToggleFullScreenCommand(ToggleFullScreenHandler);
     }
 
-    private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {
-        InfoText = _editorModel.ToString();
-    }
-
-    private void OnFileChanged(object? sender, EventArgs e) {
-        InfoText = _editorModel.ToString();
-    }
-
     private async void InitializeEditorAsync(object? sender, EventArgs eventArgs) {
         IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
 
@@ -79,7 +69,17 @@ public class EditorViewModal : ViewModelBase {
         InfoText = _editorModel.ToString();
     }
 
-    private void ToggleFullScreenHandler(object? sender, EventArgs e) => _mainWindow.WindowState =
-        _mainWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+    private void OnFileChanged(object? sender, EventArgs e) {
+        InfoText = _editorModel.ToString();
+    }
+
+    private void OnProgrammingLanguageChanged(object? sender, EventArgs e) {
+        InfoText = _editorModel.ToString();
+    }
+
+    private void ToggleFullScreenHandler(object? sender, EventArgs e) {
+        _mainWindow.WindowState =
+            _mainWindow.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+    }
 
 }

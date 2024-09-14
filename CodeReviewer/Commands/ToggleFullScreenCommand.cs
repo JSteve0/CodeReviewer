@@ -2,6 +2,10 @@
 
 namespace CodeReviewer.Commands;
 
+/// <summary>
+///     Command to toggle fullscreen on the current editor
+/// </summary>
+/// <param name="fullScreenEventHandler">Fullscreen event that gets triggered when the command is executed</param>
 public class ToggleFullScreenCommand(EventHandler fullScreenEventHandler) : DelegateCommand {
 
     public override Key GestureKey { get; protected set; } = Key.F11;

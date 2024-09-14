@@ -10,12 +10,13 @@ namespace CodeReviewer.Commands;
 /// <summary>
 ///     Command to save the current content of the editor to a file.
 /// </summary>
-public class SaveFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel) : DelegateCommand {
+public class SaveFileCommand(IEditorWindowController editorWindowController, IEditorModel editorModel)
+    : DelegateCommand {
 
     public override Key GestureKey { get; protected set; } = Key.S;
     public override string GestureKeyText { get; protected set; } = "Crtl+S";
     public override ModifierKeys GestureModifier { get; protected set; } = ModifierKeys.Control;
-    
+
     /// <summary>
     ///     Executes the command to save the editor's content to the file specified in the editor model.
     /// </summary>
@@ -37,7 +38,7 @@ public class SaveFileCommand(IEditorWindowController editorWindowController, IEd
             output = Regex.Unescape(output);
 
             await File.WriteAllTextAsync(editorModel.FilePath, output, Encoding.UTF8);
-            
+
             Logger.LogInfo("File saved");
         }
         catch (Exception ex) {

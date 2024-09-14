@@ -6,10 +6,10 @@ namespace CodeReviewer.Controllers;
 public interface IEditorWindowController {
 
     Task CreateAsync();
-    Task SetThemeAsync(ApplicationTheme theme);
-    Task SetLanguageAsync(IProgrammingLanguage? programmingLanguage);
-    Task SetContentAsync(string content);
-    Task<string> GetContent();
     void DispatchScript(string script);
+    Task<string> GetContent();
+    Task SetContentAsync(string content);
+    Task SetLanguageAsync(IProgrammingLanguage? programmingLanguage);
+    Task SetThemeAsync(ApplicationTheme theme);
 
 }

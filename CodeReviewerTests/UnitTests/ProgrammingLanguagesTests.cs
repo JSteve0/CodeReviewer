@@ -40,7 +40,7 @@ public class ProgrammingLanguagesTests {
         Assert.Equal(ProgrammingLanguages.GetAllLanguages().Count(), LanguageTestData.Count());
         Assert.Contains(
             ProgrammingLanguages.GetAllLanguages(),
-            programmingLanguage => programmingLanguage.ToString().Equals(language.Name, StringComparison.CurrentCultureIgnoreCase));
+            programmingLanguage => programmingLanguage.ToString().Equals(language.MonacoName, StringComparison.CurrentCultureIgnoreCase));
     }
 
     public static IEnumerable<object[]> LanguageTestDataWithStarterCode => new List<object[]> {
@@ -57,7 +57,7 @@ public class ProgrammingLanguagesTests {
         Assert.Contains(
             ProgrammingLanguages.GetAllLanguages(),
             programmingLanguage => 
-                programmingLanguage.ToString().Equals(language.Name, StringComparison.CurrentCultureIgnoreCase)
+                programmingLanguage.ToString().Equals(language.MonacoName, StringComparison.CurrentCultureIgnoreCase)
                 && programmingLanguage.GetStartingCode().Contains(text));
     }
 
