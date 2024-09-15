@@ -26,7 +26,7 @@ See [Releases](https://github.com/JSteve0/CodeReviewer/releases) for a full list
 
 ## Current Features
 
-- **File Management**: Create, open, edit, and save C#, Java, JavaScript, and TypeScript files.
+- **File Management**: Create, open, edit, and save C++, C#, Java, JavaScript, Python, and TypeScript files.
 - **Editor**: Utilizes the [Monaco Editor](https://microsoft.github.io/monaco-editor/) with:
   - Basic syntax colorization
   - IntelliSense and code validation
