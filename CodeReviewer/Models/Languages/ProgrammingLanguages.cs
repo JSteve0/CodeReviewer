@@ -10,6 +10,7 @@ public static class ProgrammingLanguages {
         new CSharpProgrammingLanguage(),
         new JavaProgrammingLanguage(),
         new JavaScriptProgrammingLanguage(),
+        new PythonProgrammingLanguage(),
         new TypeScriptProgrammingLanguage()
     ];
 

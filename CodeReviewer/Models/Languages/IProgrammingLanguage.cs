@@ -24,6 +24,6 @@ public interface IProgrammingLanguage {
     ///     Returns a string representation of the object.
     /// </summary>
     /// <returns>A string representation of the object.</returns>
-    string ToString();
+    string? ToString();
 
 }
