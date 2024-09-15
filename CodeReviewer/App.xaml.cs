@@ -1,9 +1,11 @@
 ﻿using System.Windows;
 using CodeReviewer.Commands;
+using CodeReviewer.Commands.FileCommands;
+using CodeReviewer.Commands.WindowCommands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Logging;
 using CodeReviewer.Models;
-using CodeReviewer.Windows;
+using CodeReviewer.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
