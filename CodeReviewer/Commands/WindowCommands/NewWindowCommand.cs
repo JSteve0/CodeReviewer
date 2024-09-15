@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using CodeReviewer.Windows;
+using CodeReviewer.Views;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.WindowCommands;
 
 /// <summary>
 ///     Command to open a new editor window in the main application.
@@ -19,6 +19,8 @@ public class NewWindowCommand : DelegateCommand {
     ///     Optional parameter for the command. Not used in this implementation and can be <c>null</c>.
     /// </param>
     public override void Execute(object? parameter) {
+        Logger.LogInfo("Opening new window");
+        
         var newWindow = new MainWindow();
         newWindow.Show();
     }

@@ -3,7 +3,7 @@ using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.FileCommands;
 
 /// <summary>
 ///     Command to create a new file in the editor with the specified programming language.
@@ -29,6 +29,8 @@ public class NewFileCommand(IEditorWindowController editorWindowController, IEdi
             ProgrammingLanguages.Languages.FirstOrDefault(lang => lang.ToString() == languageName);
 
         CreateNewEditor(language);
+        
+        Logger.LogInfo($"Created a new {languageName} file");
     }
 
 }

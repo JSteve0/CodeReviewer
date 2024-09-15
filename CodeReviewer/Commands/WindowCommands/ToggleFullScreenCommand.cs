@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.WindowCommands;
 
 /// <summary>
 ///     Command to toggle fullscreen on the current editor
@@ -12,6 +12,7 @@ public class ToggleFullScreenCommand(EventHandler fullScreenEventHandler) : Dele
     public override string GestureKeyText { get; protected set; } = "F11";
 
     public override void Execute(object? parameter) {
+        Logger.LogInfo("Toggling fullscreen");
         fullScreenEventHandler.Invoke(this, EventArgs.Empty);
     }
 

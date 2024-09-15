@@ -2,7 +2,7 @@
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.FileCommands;
 
 /// <summary>
 ///     Base class for commands that involve loading files into the editor.

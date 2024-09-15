@@ -5,7 +5,7 @@ using System.Windows.Input;
 using CodeReviewer.Controllers;
 using CodeReviewer.Models;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.FileCommands;
 
 /// <summary>
 ///     Command to save the current content of the editor to a file.

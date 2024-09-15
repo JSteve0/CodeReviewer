@@ -107,7 +107,7 @@
                     CommandParameter="exit"
                     Header="Exit" />
             </ui:MenuItem>
-            <ui:MenuItem Header="Window" Icon="{ui:SymbolIcon ChatHelp20}">
+            <ui:MenuItem Header="Window" Icon="{ui:SymbolIcon Window20}">
                 <MenuItem
                     Command="{Binding OpenNewWindow, Mode=OneWay}"
                     CommandParameter="newWindow"
@@ -116,6 +116,15 @@
                 <MenuItem
                     Command="{Binding ToggleFullScreen, Mode=OneWay}"
                     Header="Toggle Full Screen"
+                    InputGestureText="{Binding ToggleFullScreen.GestureKeyText}" />
+            </ui:MenuItem>
+            <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">
+                <MenuItem
+                    Command="{Binding OpenGitHubRepo, Mode=OneWay}"
+                    Header="GitHub" />
+                <MenuItem
+                    Command="{Binding ToggleFullScreen, Mode=OneWay}"
+                    Header="About"
                     InputGestureText="{Binding ToggleFullScreen.GestureKeyText}" />
             </ui:MenuItem>
             <!--<Separator />
@@ -135,13 +144,51 @@
                     Header="About WPF UI" />
             </ui:MenuItem>-->
         </Menu>
-
-        <ww2:WebView2
-            x:Name="WebView"
+        
+        <StackPanel 
             Grid.Row="2"
-            Margin="0"
             HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch" />
+            VerticalAlignment="Stretch"
+            >
+        </StackPanel>
+        
+        <Grid Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <!--<TreeView
+                Grid.Column="0"
+                x:Name="TreeView"
+                AllowDrop="True"
+                Margin="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch" 
+                >
+                <TreeViewItem Header="Opened Files">
+                    
+                </TreeViewItem>
+            </TreeView>-->
+            
+            <ww2:WebView2
+                Grid.Column="1"
+                x:Name="WebView"
+                Margin="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+            
+            <!--TODO: Add chat bot below-->
+            <!--<StackPanel Grid.Column="2" VerticalAlignment="Stretch">
+                <Button
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Content="Chat"
+                    Command="{Binding ChatCommand}" />-->
+                
+            <!--</StackPanel>-->
+        </Grid>
 
         <StatusBar
             x:Name="RootStatusBar"

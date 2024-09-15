@@ -1,4 +1,5 @@
-﻿using CodeReviewer.Controllers;
+﻿using System.Diagnostics;
+using CodeReviewer.Controllers;
 using CodeReviewer.ViewModels;
 
 namespace CodeReviewer.Windows;

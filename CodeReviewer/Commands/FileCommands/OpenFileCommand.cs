@@ -6,7 +6,7 @@ using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
 using Microsoft.Win32;
 
-namespace CodeReviewer.Commands;
+namespace CodeReviewer.Commands.FileCommands;
 
 /// <summary>
 ///     Command to open a file and load its content into the editor.
@@ -57,6 +57,8 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
                 ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension);
 
             CreateNewEditorFromFile(newLanguage, escapedFileText, filePath);
+            
+            Logger.LogInfo($"Opened file: {filePath}");
         }
         catch (Exception ex) {
             Logger.LogError($"Error opening file: {ex.Message}");
