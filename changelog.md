@@ -1,19 +1,33 @@
 ﻿# Changelog
 
-## Next Release: Version (0.1.1) - (TBD)
+## Next Release: Version (0.2.0) - (TBD)
 
 ### **Features**
 - Added keyboard shortcuts!
-  - New file: Ctrl+N
-  - Open new window: Ctrl+Shift+N
-  - Save file: Ctrl+S
-  - Open file: Ctrl+O
-- Menu tabs now display the relevant shortcut if one exists
-- Added fullscreen command to the 'Window' tab
-  - Use F11 as a shortcut
+  - Menu tabs now display the relevant shortcut if one exists
+  - Current shortcuts:
+    - New file: Ctrl+N
+    - Save file: Ctrl+S
+    - Open file: Ctrl+O
+    - Open new window: Ctrl+Shift+N
+    - Toggle Fullscreen: F11
+- Added a 'Window' tab to the menu bar
+  - Contains the 'New window' button
+  - Contains the new 'Fullscreen' button which toggles fullscreen mode, use the F11 key as a shortcut
+  - Will contain additional window-related commands in the future
+- Added a 'Help' tab to the menu bar
+  - Contains the new 'About' button which displays the application information
+  - Contains the new 'GitHub' button which opens the GitHub repository in a web browser
+  - Will contain additional help-related commands in the future
+- Added a new 'About' dialog
+  - Displays the application name, version, and release date
+  - Contains a brief description of the application
+  - Provides links to the GitHub repository and the developer's website
+- Added new programming language support:
+  - C++
 
 ### **Changes**
-- Added 'Window' tab and move the new window button to that tab
+- Moved the 'New window' button from the 'File' tab to the new 'Window' tab
 
 ### **Bug Fixes**
 - Updated scrollbar color to match the dark mode theme.
