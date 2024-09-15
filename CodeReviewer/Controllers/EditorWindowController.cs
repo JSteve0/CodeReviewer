@@ -11,7 +11,7 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
     private const string EditorContainerSelector = "#root";
     private const string EditorObject = "wpfUiMonacoEditor";
     
-    private ILogger _logger = ConsoleLogger.Instance;
+    private readonly ILogger _logger = Logger.Instance;
 
     /// <summary>
     ///     Creates a new async task to initialize the Monaco Editor.

@@ -23,7 +23,7 @@ public class WebViewInitializer {
 
 
     private void Initialize() {
-        ConsoleLogger.Instance.LogInfo("Initializing Web View");
+        Logger.Instance.LogInfo("Initializing Web View");
 
         _webView.NavigationCompleted += OnWebViewNavigationCompleted;
         _webView.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, true);
@@ -40,7 +40,7 @@ public class WebViewInitializer {
     }
 
     private void OnWebViewNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e) {
-        ConsoleLogger.Instance.LogInfo("Finished initialization of Web View");
+        Logger.Instance.LogInfo("Finished initialization of Web View");
         Application.Current.Dispatcher.InvokeAsync(() => _onInitializedEventHandler.Invoke(this, EventArgs.Empty));
     }
 

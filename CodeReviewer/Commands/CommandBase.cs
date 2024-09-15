@@ -10,7 +10,7 @@ namespace CodeReviewer.Commands;
 /// </summary>
 public abstract class CommandBase : ICommand {
 
-    protected readonly ILogger Logger = ConsoleLogger.Instance;
+    protected readonly ILogger Logger = Logging.Logger.Instance;
 
     /// <summary>
     ///     Determines whether the command can execute.

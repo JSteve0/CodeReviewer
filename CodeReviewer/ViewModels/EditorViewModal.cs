@@ -23,7 +23,8 @@ public class EditorViewModal : ViewModelBase {
     private readonly IEditorModel _editorModel;
     private readonly IEditorWindowController _editorWindowController;
     private readonly FluentWindow _mainWindow;
-
+    private readonly ILogger _logger = Logger.Instance;
+    
     // ReSharper disable once FieldCanBeMadeReadOnly.Local (Justification: Set by the constructor by setting the WindowTitle property)
     private string _windowTitle;
     private string _infoText = "";
@@ -74,14 +75,14 @@ public class EditorViewModal : ViewModelBase {
     private async void InitializeEditorAsync(object? sender, EventArgs eventArgs) {
         IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
 
-        ConsoleLogger.Instance.LogInfo("Initializing Monaco Editor");
+        _logger.LogInfo("Initializing Monaco Editor");
 
         await _editorWindowController.CreateAsync();
         await _editorWindowController.SetThemeAsync(ApplicationThemeManager.GetAppTheme());
         await _editorWindowController.SetLanguageAsync(startingLanguage);
         await _editorWindowController.SetContentAsync(startingLanguage.GetStartingCode());
 
-        ConsoleLogger.Instance.LogInfo("Finished initialization of Monaco Editor");
+        _logger.LogInfo("Finished initialization of Monaco Editor");
 
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();

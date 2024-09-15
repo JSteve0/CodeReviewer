@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using CodeReviewer.Logging;
 using CodeReviewer.Models;
 using Newtonsoft.Json;
 
@@ -24,7 +25,7 @@ public class ProjectDetailsService {
         string json = File.ReadAllText(FilePath);
         ProjectDetails = JsonConvert.DeserializeObject<ProjectDetailsModel>(json) ?? throw new InvalidOperationException();
     
-        Logging.ConsoleLogger.Instance.LogVerbose($"Loaded JSON File {FilePath} with data:\n" + ProjectDetails.ToString());
+        Logger.Instance.LogVerbose($"Loaded JSON File {FilePath} with data:\n" + ProjectDetails);
         return ProjectDetails;
     }
     
