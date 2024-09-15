@@ -88,14 +88,3 @@ ReportGenerator.xml
 
 # Python virtual environment
 venv/
-
-# Rider
-.idea/
-*.sln.iml
-
-# DotNet Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
-
-Doxygen/
