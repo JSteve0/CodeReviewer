@@ -29,9 +29,10 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0-preview.7.24405.7"/>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.7.24405.7"/>
         <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2651.64"/>
-        <Content Include="MonacoEditor\**;../UserGuide.md">
+        <Content Include="MonacoEditor\**;../UserGuide.md;ProjectInfo.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="WPF-UI" Version="4.0.0-rc.2"/>
     </ItemGroup>
 

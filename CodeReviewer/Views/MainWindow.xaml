@@ -1,4 +1,4 @@
-﻿<ui:FluentWindow x:Class="CodeReviewer.Windows.MainWindow"
+﻿<ui:FluentWindow x:Class="CodeReviewer.Views.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,6 @@
                  xmlns:local="clr-namespace:CodeReviewer.Models.Languages"
                  xmlns:utils="clr-namespace:CodeReviewer.Utils"
                  xmlns:viewModels="clr-namespace:CodeReviewer.ViewModels"
-                 Title="Code Reviewer"
                  Width="1250"
                  Height="652"
                  d:DesignHeight="650"
@@ -58,7 +57,7 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar
-            Title="Code Reviewer"
+            Title="{Binding WindowTitle}"
             Grid.Row="0"
             Icon="{ui:SymbolIcon Code20}" />
 
@@ -123,9 +122,8 @@
                     Command="{Binding OpenGitHubRepo, Mode=OneWay}"
                     Header="GitHub" />
                 <MenuItem
-                    Command="{Binding ToggleFullScreen, Mode=OneWay}"
-                    Header="About"
-                    InputGestureText="{Binding ToggleFullScreen.GestureKeyText}" />
+                    Command="{Binding OpenAboutWindowCommand, Mode=OneWay}"
+                    Header="About" />
             </ui:MenuItem>
             <!--<Separator />
             <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">

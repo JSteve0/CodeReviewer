@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CodeReviewer.Logging;
 using CodeReviewer.Models.Languages;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
@@ -9,6 +10,8 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
 
     private const string EditorContainerSelector = "#root";
     private const string EditorObject = "wpfUiMonacoEditor";
+    
+    private ILogger _logger = ConsoleLogger.Instance;
 
     /// <summary>
     ///     Creates a new async task to initialize the Monaco Editor.
@@ -102,9 +105,11 @@ public class EditorWindowController(WebView2 webView2) : IEditorWindowController
     private async Task ExecuteScriptWithLoggingAsync(string script) {
         try {
             await webView2.ExecuteScriptAsync(script);
+            
+            _logger.LogVerbose($"Executed script: {script}");
         }
         catch (Exception ex) {
-            Console.WriteLine($"Error executing script: {ex.Message}");
+            _logger.LogError($"Error executing script: {ex.Message}");
         }
     }
 

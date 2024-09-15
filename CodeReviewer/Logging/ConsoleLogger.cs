@@ -32,6 +32,10 @@ public class ConsoleLogger : ILogger {
         Log("INFO", message);
     }
 
+    public void LogVerbose(string message) {
+        Log("VERBOSE", message);
+    }
+
     /// <summary>
     ///     Logs a warning message to the console with a timestamp.
     /// </summary>

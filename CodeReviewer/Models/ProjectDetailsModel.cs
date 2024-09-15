@@ -1,35 +1,35 @@
-﻿namespace CodeReviewer.Models;
+﻿using Newtonsoft.Json;
 
-public class ProjectInfo {
+namespace CodeReviewer.Models;
 
-    private const string JsonFileName = "ProjectInfo.json";
+public class ProjectDetailsModel {
     
+    [JsonProperty]
+    public string Title { get; private set; }
+    [JsonProperty]
+    public string Description { get; private set; }
+    [JsonProperty]
+    public string Version { get; private set; }
+    [JsonProperty]
+    public string RepositoryURL { get; private set; }
+    [JsonProperty]
+    public string LicenseURL { get; private set; }
     
-    public string ProjectName { get; set; } = "";
-    public string ProjectPath { get; set; } = "";
-    public string ProjectType { get; set; } = "";
-    public string ProjectLanguage { get; set; } = "";
-    
-    public ProjectInfo() {
+    // ReSharper disable once ConvertToPrimaryConstructor
+    public ProjectDetailsModel(
+        string projectTitle, 
+        string projectDescription, 
+        string projectVersion, 
+        string projectRepositoryURL,
+        string projectLicenseURL) {
+        Title = projectTitle;
+        Description = projectDescription;
+        Version = projectVersion;
+        RepositoryURL = projectRepositoryURL;
+        LicenseURL = projectLicenseURL;
     }
     
-    public ProjectInfo(string projectName, string projectPath, string projectType, string projectLanguage) {
-        ProjectName = projectName;
-        ProjectPath = projectPath;
-        ProjectType = projectType;
-        ProjectLanguage = projectLanguage;
-    }
-    
-    public static ProjectInfo LoadProjectInfo() {
-        if (File.Exists(JsonFileName)) {
-            string json = File.ReadAllText(JsonFileName);
-            return JsonSerializer.Deserialize<ProjectInfo>(json);
-        }
-        return new ProjectInfo();
-    }
-    
-    public void SaveProjectInfo() {
-        string json = JsonSerializer.Serialize(this);
-        File.WriteAllText(JsonFileName, json);
+    public override string ToString() {
+        return $"Title: {Title}\nDescription: {Description}\nVersion: {Version}\nRepository URL: {RepositoryURL}\nLicense URL: {LicenseURL}";
     }
 }

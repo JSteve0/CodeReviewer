@@ -1,8 +1,7 @@
-﻿using System.Diagnostics;
-using CodeReviewer.Controllers;
+﻿using CodeReviewer.Controllers;
 using CodeReviewer.ViewModels;
 
-namespace CodeReviewer.Windows;
+namespace CodeReviewer.Views;
 
 public partial class MainWindow {
 

@@ -1,5 +1,7 @@
 ﻿using System.Windows;
-using CodeReviewer.Commands;
+using CodeReviewer.Commands.FileCommands;
+using CodeReviewer.Commands.HelpCommands;
+using CodeReviewer.Commands.WindowCommands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Logging;
 using CodeReviewer.Models;
@@ -8,6 +10,8 @@ using CodeReviewer.Services;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable. (Justification: Set by the constructor by setting the WindowTitle property)
 
 namespace CodeReviewer.ViewModels;
 
@@ -20,6 +24,8 @@ public class EditorViewModal : ViewModelBase {
     private readonly IEditorWindowController _editorWindowController;
     private readonly FluentWindow _mainWindow;
 
+    // ReSharper disable once FieldCanBeMadeReadOnly.Local (Justification: Set by the constructor by setting the WindowTitle property)
+    private string _windowTitle;
     private string _infoText = "";
 
 
@@ -28,10 +34,18 @@ public class EditorViewModal : ViewModelBase {
         _editorModel = new EditorModel(OnProgrammingLanguageChanged, OnFileChanged);
         _ = new WebViewInitializer(webView, InitializeEditorAsync);
         _mainWindow = mainWindow;
+        
+        WindowTitle = ProjectDetailsService.Instance.GetProjectTitle();
+        _mainWindow.Title = WindowTitle;
 
         InitializeCommands();
     }
 
+    public string WindowTitle {
+        get => _windowTitle;
+        private init => SetField(ref _windowTitle, value);
+    }
+    
     public string InfoText {
         get => _infoText;
         private set => SetField(ref _infoText, value);
@@ -43,6 +57,8 @@ public class EditorViewModal : ViewModelBase {
     public NewWindowCommand OpenNewWindow { get; private set; } = null!;
     public ExitCommand Exit { get; private set; } = null!;
     public ToggleFullScreenCommand ToggleFullScreen { get; private set; } = null!;
+    public OpenGitHubRepoCommand OpenGitHubRepo { get; private set; } = null!;
+    public OpenAboutWindowCommand OpenAboutWindowCommand { get; private set; } = null!;
 
     private void InitializeCommands() {
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
@@ -51,6 +67,8 @@ public class EditorViewModal : ViewModelBase {
         OpenNewWindow = new NewWindowCommand();
         Exit = new ExitCommand();
         ToggleFullScreen = new ToggleFullScreenCommand(ToggleFullScreenHandler);
+        OpenGitHubRepo = new OpenGitHubRepoCommand();
+        OpenAboutWindowCommand = new OpenAboutWindowCommand();
     }
 
     private async void InitializeEditorAsync(object? sender, EventArgs eventArgs) {

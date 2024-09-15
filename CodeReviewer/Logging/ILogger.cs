@@ -16,6 +16,12 @@ public interface ILogger {
     /// </summary>
     /// <param name="message">The message to be logged.</param>
     void LogInfo(string message);
+    
+    /// <summary>
+    ///     Logs a verbose message.
+    /// </summary>
+    /// <param name="message">The message to be logged.</param>
+    void LogVerbose(string message);
 
     /// <summary>
     ///     Logs a warning message.
