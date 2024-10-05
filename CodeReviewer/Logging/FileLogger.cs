@@ -7,8 +7,6 @@ public class FileLogger : ILogger {
     // ReSharper disable once InconsistentNaming
     private static readonly Lazy<FileLogger> _instance = new(() => new FileLogger());
     
-    private FileLogger() { }
-    
     public static FileLogger Instance => _instance.Value;
 
     public void LogError(string message) {
@@ -27,13 +25,18 @@ public class FileLogger : ILogger {
         Log(message, "WARNING");
     }
     
-    private void Log(string message, string level) {
+    private static string CleanMessage(string message) {
+        return message.Replace("\r\n", "\\n").Replace("\n", "\\n").Replace("\t", "\\t");
+    }
+    
+    private static void Log(string message, string level) {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        const string fileName = "log.crlog";
         try {
-            File.AppendAllText("log.txt", $"{timestamp} [{level}] {message}\n"); 
+            File.AppendAllText(fileName, $"[{timestamp}] [{level}] [{CleanMessage(message)}]\n"); 
         }
-        catch (Exception e) {
-            ConsoleLogger.Instance.LogError(e.ToString());
+        catch (Exception ex) {
+            ConsoleLogger.Instance.LogError(ex.ToString());
             throw;
         }
     }

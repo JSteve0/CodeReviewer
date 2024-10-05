@@ -1,0 +1,78 @@
+﻿{
+  "Languages": [
+    {
+      "Name": "C++",
+      "MonacoName": "CPP",
+      "Extensions": [
+        ".cpp",
+        ".h"
+      ],
+      "StartingCode": "#include <iostream>\n\nusing std::cout;\nusing std::endl;\n\nint main()\n{\n\tcout << \"Hello, world!\" << endl;\n\treturn 0;\n}\n"
+    },
+    {
+      "Name": "CodeReviewerLog",
+      "Extensions": [
+        ".crlog"
+      ],
+      "StartingCode": "[2024-09-15 15:59:34.772] [INFO] [Open a Code Reviewer log file]\n"
+    },
+    {
+      "Name": "C#",
+      "MonacoName": "CSharp",
+      "Extensions": [
+        ".cs"
+      ],
+      "StartingCode": "using System;\n\nnamespace HelloWorld {\n\n\tclass Program {\n\n\t\tpublic static void Main(string[] args) {\n\t\t\tConsole.WriteLine(\"Hello, world!\");\n\t\t}\n\n\t}\n\n}\n"
+    },
+    {
+      "Name": "F#",
+      "MonacoName": "FSharp", 
+      "Extensions": [
+          ".fs"
+      ],
+      "StartingCode": "open System\n\n[<EntryPoint>]\nlet main argv =\n\tConsole.WriteLine(\"Hello, world!\")\n\t0\n"
+    },
+    {
+      "Name": "Java",
+      "Extensions": [
+        ".java"
+      ],
+      "StartingCode": "public class HelloWorld {\n\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello, world!\");\n\t}\n\n}\n"
+    },
+    {
+      "Name": "Kotlin",
+      "Extensions": [
+        ".kt"
+      ],
+      "StartingCode": "fun main() {\n\tprintln(\"Hello, world!\")\n}\n"
+    },
+    {
+      "Name": "JavaScript",
+      "Extensions": [
+        ".js"
+      ],
+      "StartingCode": "console.log(\"Hello, world!\");\n"
+    },
+    {
+      "Name": "Python",
+      "Extensions": [
+        ".py"
+      ],
+      "StartingCode": "print(\"Hello, world!\")\n"
+    },
+    {
+        "Name": "Swift",
+        "Extensions": [
+            ".swift"
+        ],
+        "StartingCode": "let text: String = \"Hello, world!\"\n\nprint(text)\n"
+    },
+    {
+      "Name": "TypeScript",
+      "Extensions": [
+        ".ts"
+      ],
+      "StartingCode": "const text: String = 'Hello, world!';\n\nconsole.log(text);\n"
+    }
+  ]
+}

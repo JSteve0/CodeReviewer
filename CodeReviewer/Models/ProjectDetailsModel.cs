@@ -14,6 +14,8 @@ public class ProjectDetailsModel {
     public string RepositoryURL { get; private set; }
     [JsonProperty]
     public string LicenseURL { get; private set; }
+    [JsonProperty]
+    public AuthorsModel[] Authors { get; private set; }
     
     // ReSharper disable once ConvertToPrimaryConstructor
     public ProjectDetailsModel(
@@ -21,15 +23,17 @@ public class ProjectDetailsModel {
         string projectDescription, 
         string projectVersion, 
         string projectRepositoryURL,
-        string projectLicenseURL) {
+        string projectLicenseURL,
+        AuthorsModel[] projectAuthors) {
         Title = projectTitle;
         Description = projectDescription;
         Version = projectVersion;
         RepositoryURL = projectRepositoryURL;
         LicenseURL = projectLicenseURL;
+        Authors = projectAuthors;
     }
     
     public override string ToString() {
-        return $"Title: {Title}\nDescription: {Description}\nVersion: {Version}\nRepository URL: {RepositoryURL}\nLicense URL: {LicenseURL}";
+        return $"Title: {Title}\nDescription: {Description}\nVersion: {Version}\nRepository URL: {RepositoryURL}\nLicense URL: {LicenseURL}\nAuthors: {Authors}";
     }
 }

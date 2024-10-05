@@ -8,9 +8,6 @@ public class ConsoleLogger : ILogger {
     // ReSharper disable once InconsistentNaming
     private static readonly Lazy<ConsoleLogger> _instance = new(() => new ConsoleLogger());
 
-    // Private constructor to prevent instantiation
-    private ConsoleLogger() { }
-
     /// <summary>
     ///     Gets the singleton instance of <see cref="ConsoleLogger" />.
     /// </summary>
@@ -21,7 +18,7 @@ public class ConsoleLogger : ILogger {
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void LogError(string message) {
-        Log("ERROR", message);
+        Log("ERROR", message, ConsoleColor.Red);
     }
 
     /// <summary>
@@ -29,11 +26,11 @@ public class ConsoleLogger : ILogger {
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void LogInfo(string message) {
-        Log("INFO", message);
+        Log("INFO", message, ConsoleColor.Green);
     }
 
     public void LogVerbose(string message) {
-        Log("VERBOSE", message);
+        Log("VERBOSE", message, ConsoleColor.Gray);
     }
 
     /// <summary>
@@ -41,12 +38,19 @@ public class ConsoleLogger : ILogger {
     /// </summary>
     /// <param name="message">The message to log.</param>
     public void LogWarning(string message) {
-        Log("WARNING", message);
+        Log("WARNING", message, ConsoleColor.Yellow);
+    }
+    
+    private static string CleanMessage(string message) {
+        return message.Replace("\r\n", "\\n").Replace("\n", "\\n").Replace("\t", "\\t");
     }
 
-    private void Log(string level, string message) {
+    private static void Log(string level, string message, ConsoleColor consoleColor) {
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-        Console.WriteLine($"{timestamp} [{level}] {message}");
+        
+        Console.ForegroundColor = consoleColor;
+        Console.WriteLine($"[{timestamp}] [{level}] [{CleanMessage(message)}]");
+        Console.ResetColor();
     }
 
 }

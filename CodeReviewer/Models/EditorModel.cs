@@ -2,16 +2,19 @@
 
 namespace CodeReviewer.Models;
 
-public class EditorModel(EventHandler languageChangedEvent, EventHandler filePathChangedEvent) : IEditorModel {
+public class EditorModel : IEditorModel {
 
     private IProgrammingLanguage? _currentLanguage;
     private string? _filePath;
+
+    public event EventHandler? LanguageChangedEvent;
+    public event EventHandler? FilePathChangedEvent;
 
     public IProgrammingLanguage? CurrentLanguage {
         get => _currentLanguage;
         set {
             _currentLanguage = value;
-            languageChangedEvent.Invoke(this, EventArgs.Empty);
+            LanguageChangedEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -19,7 +22,7 @@ public class EditorModel(EventHandler languageChangedEvent, EventHandler filePat
         get => _filePath;
         set {
             _filePath = value;
-            filePathChangedEvent.Invoke(this, EventArgs.Empty);
+            FilePathChangedEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 

@@ -7,6 +7,8 @@ using CodeReviewer.Logging;
 using CodeReviewer.Models;
 using CodeReviewer.Models.Languages;
 using CodeReviewer.Services;
+using CodeReviewer.Services.JsonServices;
+using CodeReviewer.Views;
 using Microsoft.Web.WebView2.Wpf;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -19,24 +21,32 @@ namespace CodeReviewer.ViewModels;
 ///     Represents the view model for the editor view in the application.
 /// </summary>
 public class EditorViewModal : ViewModelBase {
-
-    private readonly IEditorModel _editorModel;
+    
     private readonly IEditorWindowController _editorWindowController;
+    private readonly IEditorModel _editorModel;
+    private readonly ProjectDetailsService _projectDetailsService;
     private readonly FluentWindow _mainWindow;
-    private readonly ILogger _logger = Logger.Instance;
     
     // ReSharper disable once FieldCanBeMadeReadOnly.Local (Justification: Set by the constructor by setting the WindowTitle property)
     private string _windowTitle;
     private string _infoText = "";
 
-
-    public EditorViewModal(WebView2 webView, IEditorWindowController editorWindowController, FluentWindow mainWindow) {
+    public EditorViewModal(
+        IEditorWindowController editorWindowController, 
+        IEditorModel editorModel,
+        ProjectDetailsService projectDetailsService,
+        WebView2 webView, 
+        FluentWindow mainWindow) {
         _editorWindowController = editorWindowController;
-        _editorModel = new EditorModel(OnProgrammingLanguageChanged, OnFileChanged);
+        _editorModel = editorModel;
+        _projectDetailsService = projectDetailsService;
         _ = new WebViewInitializer(webView, InitializeEditorAsync);
         _mainWindow = mainWindow;
         
-        WindowTitle = ProjectDetailsService.Instance.GetProjectTitle();
+        _editorModel.FilePathChangedEvent += OnFileChanged;
+        _editorModel.LanguageChangedEvent += OnProgrammingLanguageChanged;
+        
+        WindowTitle = _projectDetailsService.GetProjectTitle();
         _mainWindow.Title = WindowTitle;
 
         InitializeCommands();
@@ -52,37 +62,47 @@ public class EditorViewModal : ViewModelBase {
         private set => SetField(ref _infoText, value);
     }
 
-    public SaveFileCommand SaveFile { get; private set; } = null!;
-    public OpenFileCommand OpenFile { get; private set; } = null!;
-    public NewFileCommand NewFile { get; private set; } = null!;
-    public NewWindowCommand OpenNewWindow { get; private set; } = null!;
-    public ExitCommand Exit { get; private set; } = null!;
-    public ToggleFullScreenCommand ToggleFullScreen { get; private set; } = null!;
-    public OpenGitHubRepoCommand OpenGitHubRepo { get; private set; } = null!;
-    public OpenAboutWindowCommand OpenAboutWindowCommand { get; private set; } = null!;
+    public SaveFileCommand SaveFile { get; private set; }
+    public OpenFileCommand OpenFile { get; private set; }
+    public NewFileCommand NewFile { get; private set; }
+    public NewWindowCommand OpenNewWindow { get; private set; }
+    public ExitCommand Exit { get; private set; }
+    public ToggleFullScreenCommand ToggleFullScreen { get; private set; }
+    public OpenGitHubRepoCommand OpenGitHubRepo { get; private set; }
+    public OpenAboutWindowCommand OpenAboutWindowCommand { get; private set; }
+    public ViewLogCommand ViewLog { get; private set; }
+    public ReportBugCommand ReportBug { get; private set; }
 
     private void InitializeCommands() {
+        // File-related commands
         SaveFile = new SaveFileCommand(_editorWindowController, _editorModel);
         OpenFile = new OpenFileCommand(_editorWindowController, _editorModel);
         NewFile = new NewFileCommand(_editorWindowController, _editorModel);
+
+        // Window-related commands
         OpenNewWindow = new NewWindowCommand();
         Exit = new ExitCommand();
         ToggleFullScreen = new ToggleFullScreenCommand(ToggleFullScreenHandler);
-        OpenGitHubRepo = new OpenGitHubRepoCommand();
-        OpenAboutWindowCommand = new OpenAboutWindowCommand();
+
+        // Help-related commands
+        OpenGitHubRepo = new OpenGitHubRepoCommand(_projectDetailsService.ProjectDetails);
+        OpenAboutWindowCommand = new OpenAboutWindowCommand((MainWindow)_mainWindow, _projectDetailsService.ProjectDetails);
+        ViewLog = new ViewLogCommand(_editorWindowController, _editorModel);
+        ReportBug = new ReportBugCommand(_projectDetailsService.ProjectDetails);
     }
 
     private async void InitializeEditorAsync(object? sender, EventArgs eventArgs) {
         IProgrammingLanguage startingLanguage = ProgrammingLanguages.Languages.FirstOrDefault()!;
 
-        _logger.LogInfo("Initializing Monaco Editor");
+        Logger.Instance.LogInfo("Initializing Monaco Editor");
 
         await _editorWindowController.CreateAsync();
+        await _editorWindowController.AddCustomLanguageToEditorAsync(ProgrammingLanguages.GetProgrammingLanguageFromExtension(".crlog")!);
         await _editorWindowController.SetThemeAsync(ApplicationThemeManager.GetAppTheme());
         await _editorWindowController.SetLanguageAsync(startingLanguage);
-        await _editorWindowController.SetContentAsync(startingLanguage.GetStartingCode());
+        await _editorWindowController.SetContentAsync(startingLanguage.StartingCode);
 
-        _logger.LogInfo("Finished initialization of Monaco Editor");
+        Logger.Instance.LogInfo("Finished initialization of Monaco Editor");
 
         _editorModel.CurrentLanguage = startingLanguage;
         InfoText = _editorModel.ToString();

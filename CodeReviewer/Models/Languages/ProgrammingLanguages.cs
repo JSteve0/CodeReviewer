@@ -1,18 +1,13 @@
-﻿namespace CodeReviewer.Models.Languages;
+﻿using AllLanguages = CodeReviewer.Services.JsonServices.LanguagesService;
+
+namespace CodeReviewer.Models.Languages;
 
 public static class ProgrammingLanguages {
 
     /// <summary>
     ///     Provides a reference to all the programming languages.
     /// </summary>
-    public static readonly List<IProgrammingLanguage> Languages = [
-        new CPlusPlusProgrammingLanguage(),
-        new CSharpProgrammingLanguage(),
-        new JavaProgrammingLanguage(),
-        new JavaScriptProgrammingLanguage(),
-        new PythonProgrammingLanguage(),
-        new TypeScriptProgrammingLanguage()
-    ];
+    public static readonly List<LanguageModel> Languages = AllLanguages.Instance.Languages;
 
     /// <summary>
     ///     Retrieves all the programming languages available.
@@ -31,9 +26,7 @@ public static class ProgrammingLanguages {
     ///     found.
     /// </returns>
     public static IProgrammingLanguage? GetProgrammingLanguageFromExtension(string extension) {
-        IProgrammingLanguage? language =
-            Languages.FirstOrDefault(l => l.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
-        return language;
+        return Languages.FirstOrDefault(l => l.Extensions.Contains(extension, StringComparer.OrdinalIgnoreCase));
     }
 
 }

@@ -5,6 +5,7 @@ namespace CodeReviewer.Controllers;
 
 public interface IEditorWindowController {
 
+    Task AddCustomLanguageToEditorAsync(IProgrammingLanguage programmingLanguage);
     Task CreateAsync();
     void DispatchScript(string script);
     Task<string> GetContent();

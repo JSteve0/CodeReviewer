@@ -19,7 +19,8 @@
                  d:DataContext="{d:DesignInstance viewModels:EditorViewModal}"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica"
-                 WindowCornerPreference="Default">
+                 WindowCornerPreference="Default"
+                 Icon="../Resources/CR.ico">
     <Window.Resources>
         <ObjectDataProvider x:Key="GetAllLanguagesProvider" MethodName="GetAllLanguages"
                             ObjectType="{x:Type local:ProgrammingLanguages}" />
@@ -46,6 +47,10 @@
             Command="{Binding NewFile, Mode=OneWay}"
             Key="{Binding NewFile.GestureKey}"
             Modifiers="{Binding NewFile.GestureModifier}" />
+        <KeyBinding
+            Command="{Binding ViewLog, Mode=OneWay}"
+            Key="{Binding ViewLog.GestureKey}"
+            Modifiers="{Binding ViewLog.GestureModifier}" />
     </Window.InputBindings>
 
     <Grid>
@@ -76,11 +81,11 @@
                     <ui:MenuItem.ItemTemplate>
                         <DataTemplate>
                             <TextBlock
-                                Text="{Binding DisplayName, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
+                                Text="{Binding Name, Converter={StaticResource UpperCaseWithSuffixConverter}, ConverterParameter=' File'}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding Gesture="LeftClick"
                                                   Command="{Binding DataContext.NewFile, RelativeSource={RelativeSource AncestorType={x:Type ui:MenuItem}}}"
-                                                  CommandParameter="{Binding MonacoName}" />
+                                                  CommandParameter="{Binding Name}" />
                                 </TextBlock.InputBindings>
                             </TextBlock>
                         </DataTemplate>
@@ -110,7 +115,7 @@
                 <MenuItem
                     Command="{Binding OpenNewWindow, Mode=OneWay}"
                     CommandParameter="newWindow"
-                    Header="New window"
+                    Header="New Window"
                     InputGestureText="{Binding OpenNewWindow.GestureKeyText}" />
                 <MenuItem
                     Command="{Binding ToggleFullScreen, Mode=OneWay}"
@@ -120,7 +125,14 @@
             <ui:MenuItem Header="Help" Icon="{ui:SymbolIcon ChatHelp20}">
                 <MenuItem
                     Command="{Binding OpenGitHubRepo, Mode=OneWay}"
-                    Header="GitHub" />
+                    Header="GitHub Link" />
+                <MenuItem
+                    Command="{Binding ReportBug, Mode=OneWay}"
+                    Header="Report a Bug Link" />
+                <MenuItem
+                    Command="{Binding ViewLog, Mode=OneWay}"
+                    Header="View Log" 
+                    InputGestureText="{Binding ViewLog.GestureKeyText}" />
                 <MenuItem
                     Command="{Binding OpenAboutWindowCommand, Mode=OneWay}"
                     Header="About" />
@@ -154,6 +166,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4px" />
+                <ColumnDefinition Width="Auto" Name="SideBarWindowColumnDefinition"/>
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             
@@ -177,15 +191,36 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch" />
             
-            <!--TODO: Add chat bot below-->
-            <!--<StackPanel Grid.Column="2" VerticalAlignment="Stretch">
-                <Button
-                    VerticalAlignment="Bottom"
+            <GridSplitter Name="GridSplitter" Grid.Column="2" Width="4px" HorizontalAlignment="Stretch" Background="Gray"/>
+            
+            <ScrollViewer Name="ScrollViewer" Grid.Column="3" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+                <StackPanel
+                    Name="ChatPanel" 
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
+                    Visibility="Visible"
+                    d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}">
+                    <!-- Wrapping the StackPanel with ScrollViewer for dynamic content growth -->
+                    <ui:RichTextBox
+                        Name="ChatTextBox"
+                        Margin="8,8" 
+                        Padding="4,4"
+                        HorizontalAlignment="Center"
+                        Width="{Binding Path=ActualWidth, ElementName=ChatPanel, Mode=OneWay}">
+                    </ui:RichTextBox >
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Grid.Column="4" d:DataContext="{d:DesignInstance viewModels:SideBarViewModel}">
+                <ui:Button
+                    Name="ChatButton"
                     HorizontalAlignment="Right"
-                    Content="Chat"
-                    Command="{Binding ChatCommand}" />-->
-                
-            <!--</StackPanel>-->
+                    VerticalAlignment="Top"
+                    Padding="5"
+                    ToolTip="Chat with the bot"
+                    Command="{Binding ChatButtonCommand}"
+                    Icon="{ui:SymbolIcon Chat20}"
+                    Appearance="Primary"/>
+            </StackPanel>
         </Grid>
 
         <StatusBar

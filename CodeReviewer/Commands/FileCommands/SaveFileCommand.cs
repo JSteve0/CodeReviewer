@@ -39,7 +39,7 @@ public class SaveFileCommand(IEditorWindowController editorWindowController, IEd
 
             await File.WriteAllTextAsync(editorModel.FilePath, output, Encoding.UTF8);
 
-            Logger.LogInfo("File saved");
+            Logger.LogInfo($"{editorModel.FilePath} saved successfully");
         }
         catch (Exception ex) {
             Logger.LogError($"Error writing to file: {ex.Message}");

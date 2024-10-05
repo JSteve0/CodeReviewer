@@ -19,15 +19,6 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
     public override ModifierKeys GestureModifier { get; protected set; } = ModifierKeys.Control;
 
     /// <summary>
-    ///     Escapes special characters in the text for use in JavaScript.
-    /// </summary>
-    /// <param name="text">The text to escape.</param>
-    /// <returns>The escaped text.</returns>
-    private static string EscapeJavaScriptString(string text) {
-        return text.Replace("\"", "\\\"");
-    }
-
-    /// <summary>
     ///     Executes the command to open a file dialog, read the selected file's content, and initialize the editor with the
     ///     file's content.
     /// </summary>
@@ -49,19 +40,27 @@ public class OpenFileCommand(IEditorWindowController editorWindowController, IEd
         string filePath = openFileDialog.FileName;
 
         try {
+            // Get the size of the file in bytes and if it is over certain size, log a warning
+            long fileSize = new FileInfo(filePath).Length;
+            
+            Logger.LogInfo($"{filePath} is {fileSize} bytes in size.");
+            
+            if (fileSize > 1000000) {
+                Logger.LogWarning("File is over 1MB in size. Opening large files may cause performance issues.");
+            }
+            
             string fileText = File.ReadAllText(filePath, Encoding.UTF8);
-            string escapedFileText = EscapeJavaScriptString(fileText);
-            string fileExtension = Path.GetExtension(filePath)[1..];
+            string fileExtension = Path.GetExtension(filePath);
 
             IProgrammingLanguage? newLanguage =
                 ProgrammingLanguages.GetProgrammingLanguageFromExtension(fileExtension);
 
-            CreateNewEditorFromFile(newLanguage, escapedFileText, filePath);
+            CreateNewEditorFromFile(newLanguage, fileText, filePath);
             
             Logger.LogInfo($"Opened file: {filePath}");
         }
         catch (Exception ex) {
-            Logger.LogError($"Error opening file: {ex.Message}");
+            Logger.LogError($"Error opening file: {ex}");
         }
     }
 

@@ -1,10 +1,9 @@
 ﻿using System.Windows;
-using CodeReviewer.Commands;
-using CodeReviewer.Commands.FileCommands;
-using CodeReviewer.Commands.WindowCommands;
 using CodeReviewer.Controllers;
 using CodeReviewer.Logging;
 using CodeReviewer.Models;
+using CodeReviewer.Services;
+using CodeReviewer.Services.JsonServices;
 using CodeReviewer.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,6 +17,8 @@ namespace CodeReviewer;
 public partial class App : Application {
 
     private IHost? _host;
+    
+    public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
     private IHostBuilder CreateHostBuilder() {
         return Host.CreateDefaultBuilder()
@@ -26,12 +27,7 @@ public partial class App : Application {
                        services.AddTransient<IEditorModel, EditorModel>();
                        services.AddTransient<IEditorWindowController, EditorWindowController>();
                        services.AddSingleton<ILogger, ConsoleLogger>();
-
-                       // Register commands
-                       services.AddTransient<NewFileCommand>();
-                       services.AddTransient<OpenFileCommand>();
-                       services.AddTransient<SaveFileCommand>();
-                       services.AddTransient<NewWindowCommand>();
+                       services.AddSingleton<ProjectDetailsService>();
 
                        // Register the main window
                        services.AddTransient<MainWindow>();
@@ -49,9 +45,9 @@ public partial class App : Application {
         _host = CreateHostBuilder().Build();
         _host.Start();
 
-        IServiceProvider serviceProvider = _host.Services;
+        ServiceProvider = _host.Services;
 
-        var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+        var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
         mainWindow.Show();
     }
 

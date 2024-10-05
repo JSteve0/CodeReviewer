@@ -18,12 +18,12 @@ public abstract class LoadFileCommandBase(IEditorWindowController editorWindowCo
     protected void CreateNewEditor(IProgrammingLanguage? programmingLanguage) {
         SetLanguage(programmingLanguage);
         _ = editorWindowController.SetContentAsync(programmingLanguage != null
-            ? programmingLanguage.GetStartingCode()
+            ? programmingLanguage.StartingCode
             : "");
 
         editorModel.FilePath = null;
 
-        Logger.LogInfo($"Created and opened a new {programmingLanguage!.ToString()} file");
+        Logger.LogInfo($"Created and opened a new {programmingLanguage!} file");
     }
 
     /// <summary>
@@ -39,7 +39,9 @@ public abstract class LoadFileCommandBase(IEditorWindowController editorWindowCo
 
         editorModel.FilePath = fileName;
 
-        Logger.LogInfo($"Opened a {programmingLanguage!.ToString()} file");
+        Logger.LogInfo(programmingLanguage == null
+            ? $"Opened an unsupported file: {fileName}"
+            : $"Opened a {programmingLanguage} file");
     }
 
     /// <summary>

@@ -2,6 +2,6 @@
 
 public static class Logger {
 
-    public static ILogger Instance => FileLogger.Instance;
+    public static ILogger Instance { get; set; } = FileLogger.Instance;
 
 }

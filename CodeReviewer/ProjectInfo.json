@@ -1,10 +1,13 @@
 ﻿{
   "Title": "CodeReviewer",
   "Description": "IDE That Performs Code Reviews Using ChatGPT",
-  "Authors": {
-    "Name": "Justin Stevens"
-  },
-  "Version": "0.1.0",
+  "Authors": [
+    {
+      "Name": "Justin Stevens",
+      "Email": ""
+    }
+  ],
+  "Version": "0.2.0",
   "RepositoryURL": "https://github.com/JSteve0/CodeReviewer",
-  "LicenseURL": "https://github.com/JSteve0/CodeReviewer/blob/main/license"
+  "LicenseURL": "https://github.com/JSteve0/CodeReviewer/blob/main/license",
 }

@@ -24,9 +24,15 @@ public class NewFileCommand(IEditorWindowController editorWindowController, IEdi
     ///     This parameter is optional and can be <c>null</c>.
     /// </param>
     public override void Execute(object? parameter) {
-        string languageName = parameter?.ToString() ?? "CSharp";
-        IProgrammingLanguage? language =
-            ProgrammingLanguages.Languages.FirstOrDefault(lang => lang.ToString() == languageName);
+        var languageName = parameter?.ToString();
+        
+        if (string.IsNullOrWhiteSpace(languageName)) {
+            Logger.LogWarning("No programming language specified");
+            return;
+        }
+        
+        IProgrammingLanguage? language = ProgrammingLanguages.Languages.FirstOrDefault(lang 
+            => string.Equals(lang.ToString(), languageName, StringComparison.CurrentCultureIgnoreCase));
 
         CreateNewEditor(language);
         

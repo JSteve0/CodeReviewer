@@ -17,7 +17,7 @@ public class WebViewInitializer {
 
     public WebViewInitializer(WebView2 webView, EventHandler onInitializedEventHandler) {
         _webView = webView;
-        _onInitializedEventHandler += onInitializedEventHandler;
+        _onInitializedEventHandler = onInitializedEventHandler;
         Initialize();
     }
 
@@ -28,18 +28,21 @@ public class WebViewInitializer {
         _webView.NavigationCompleted += OnWebViewNavigationCompleted;
         _webView.SetCurrentValue(FrameworkElement.UseLayoutRoundingProperty, true);
         _webView.SetCurrentValue(WebView2.DefaultBackgroundColorProperty, Color.Transparent);
-        _webView.SetCurrentValue(
-            WebView2.SourceProperty,
-            new Uri(
-                Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "MonacoEditor/index.html"
-                )
-            )
-        );
+        try {
+            var sourceUri = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MonacoEditor/index.html"));
+            _webView.SetCurrentValue(WebView2.SourceProperty, sourceUri);
+        }
+        catch (Exception ex) {
+            Logger.Instance.LogError("Error initializing WebView source: " + ex.Message);
+        }
     }
 
     private void OnWebViewNavigationCompleted(object? sender, CoreWebView2NavigationCompletedEventArgs e) {
+        if (!e.IsSuccess) {
+            Logger.Instance.LogError($"Navigation failed with error code {e.WebErrorStatus}");
+            return;
+        }
+
         Logger.Instance.LogInfo("Finished initialization of Web View");
         Application.Current.Dispatcher.InvokeAsync(() => _onInitializedEventHandler.Invoke(this, EventArgs.Empty));
     }
